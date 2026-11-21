@@ -12,6 +12,13 @@ docker compose up --build
 
 ブラウザーで [localhost:8080](http://localhost:8080) を開きます。終了するときは `Ctrl+C` を押して `docker compose down` を実行します。8080 番ポートをほかで使用している場合は、`YOSORA_PORT=8081 docker compose up --build` で公開ポートを変更できます。
 
+## GitHub Pages で公開
+
+1. リポジトリの **Settings → Pages** で、**Build and deployment → Source** を **GitHub Actions** に設定します。
+2. **Actions → Deploy YOSORA to GitHub Pages → Run workflow** から、`main` を選んで実行します。以降は `public/` の変更を `main` に push すると自動更新されます。
+
+公開先の URL は **Settings → Pages** で確認できます。このリポジトリの標準 URL は `https://daigo0001.github.io/codex_fullpower/` です。Docker 版と GitHub Pages 版では、お気に入りと観測ノートの保存領域が別になります。
+
 ## 夜空の使い方
 
 1. 観測地と日時を指定します。星図は中心が天頂、外周が地平線で、上が北、左が東です。
