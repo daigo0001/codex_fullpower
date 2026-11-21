@@ -98,7 +98,7 @@ h1, h2, p { margin: 0; }
 
 .app-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
 }
 
@@ -117,6 +117,12 @@ h1, h2, p { margin: 0; }
   transition: border-color .18s ease, background-color .18s ease;
 }
 
+.flow-card {
+  --accent: #a0d6ff;
+  --accent-border: #456482;
+  --accent-tint: #213a54;
+}
+
 .yosora-card {
   --accent: #ffae8a;
   --accent-border: #78513e;
@@ -128,13 +134,15 @@ h1, h2, p { margin: 0; }
   background: #1f241c;
 }
 
+.flow-card:hover, .flow-card:focus-visible { background: #1d2628; }
+
 .yosora-card:hover, .yosora-card:focus-visible { background: #23231d; }
 
 .card-art {
   position: relative;
   display: flex;
   align-items: flex-start;
-  min-height: clamp(145px, 19vw, 238px);
+  min-height: clamp(145px, 16.1vw, 218px);
   padding: 20px;
   overflow: hidden;
   border-bottom: 1px solid #42534752;
@@ -150,6 +158,15 @@ h1, h2, p { margin: 0; }
 }
 
 .app-card:hover .card-art::before { transform: scale(1.035); }
+
+.flow-art {
+  border-bottom-color: #40556e;
+  background: #15283d;
+}
+
+.flow-art::before {
+  background-image: linear-gradient(105deg, #102139b3, #203d5e14 70%), url("./assets/flow-atlas.webp");
+}
 
 .guard-art { background: #16302b; }
 
@@ -284,6 +301,17 @@ h1, h2, p { margin: 0; }
   .shell { width: calc(100% - 58px); }
   .main-content { padding-top: 50px; }
   .card-content { padding-inline: 19px; }
+}
+
+@media (661px <= width <= 950px) {
+  .app-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .flow-card {
+    display: grid;
+    grid-column: span 2;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .flow-card .card-art { border-right: 1px solid #40556e; border-bottom: 0; }
+  .flow-card .card-content { padding-inline: 24px; }
 }
 
 @media (max-width: 660px) {

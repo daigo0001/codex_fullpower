@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#11130f">
-  <meta name="description" content="Codex Lab のアプリを開く。HTTP レスポンスヘッダーの点検ツール Header Guard と天体観測プランナー YOSORA。">
+  <meta name="description" content="Codex Lab のアプリを開く。ネットワークの流れを学べる Flow Atlas、HTTP ヘッダーを点検する Header Guard、天体観測プランナー YOSORA。">
   <title>Codex Lab — アプリ一覧</title>
   <link rel="icon" href="./assets/lab-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./portal.css">
@@ -28,6 +28,30 @@
       </div>
 
       <div class="app-grid">
+        <a class="app-card flow-card" href="./network/" aria-labelledby="flow-title flow-open">
+          <div class="card-art flow-art">
+            <span class="app-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="2" width="6" height="5" rx="1"/>
+                <rect x="2" y="17" width="6" height="5" rx="1"/>
+                <rect x="16" y="17" width="6" height="5" rx="1"/>
+                <path d="M12 7v5m-7 5v-5h14v5"/>
+              </svg>
+            </span>
+          </div>
+          <div class="card-content">
+            <p class="category"><i aria-hidden="true"></i> ネットワーク</p>
+            <h2 id="flow-title">Flow Atlas</h2>
+            <p class="description">DNS から HTTPS までを図と再生で追い、キャッシュや HTTP/3、DNS エラー時の違いを比較できます。</p>
+            <div class="card-footer">
+              <span class="app-detail">通信の図解・タイムライン</span>
+              <span class="open-label" id="flow-open">アプリを開く
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+
         <a class="app-card guard-card" href="./security/" aria-labelledby="guard-title guard-open">
           <div class="card-art guard-art">
             <span class="app-icon" aria-hidden="true">
