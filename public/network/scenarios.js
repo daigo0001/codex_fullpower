@@ -1,8 +1,8 @@
 export const actors = [
-  { id: "client", name: "ブラウザー", detail: "名前解決を依頼し、接続を確立してページを取得します。", icon: "browser" },
-  { id: "dns", name: "DNS リゾルバー", detail: "名前に対応する IP アドレスを調べます。キャッシュがなければ、必要な DNS サーバーに問い合わせます。", icon: "dns" },
-  { id: "edge", name: "CDN エッジ", detail: "ブラウザーとの HTTPS 接続を受けます。保存済みの応答を返すか、オリジンへ処理を中継します。", icon: "edge" },
-  { id: "origin", name: "オリジン", detail: "アプリケーションを実行し、ページの内容を生成するサーバーです。", icon: "origin" },
+  { id: "client", laneLabel: "ブラウザー", name: "ブラウザー", detail: "名前解決を依頼し、接続を確立してページを取得します。", icon: "browser" },
+  { id: "dns", laneLabel: "DNS", name: "DNS リゾルバー", detail: "名前に対応する IP アドレスを調べます。キャッシュがなければ、必要な DNS サーバーに問い合わせます。", icon: "dns" },
+  { id: "edge", laneLabel: "エッジ", name: "CDN エッジ", detail: "ブラウザーとの HTTPS 接続を受けます。保存済みの応答を返すか、オリジンへ処理を中継します。", icon: "edge" },
+  { id: "origin", laneLabel: "オリジン", name: "オリジン", detail: "アプリケーションを実行し、ページの内容を生成するサーバーです。", icon: "origin" },
 ];
 
 const site = "portal.example.test";
@@ -216,12 +216,4 @@ export const scenarios = [
   },
 ];
 
-// Timings are illustrative. A single row can combine several wire messages.
-export function getTimeline(scenario) {
-  let end = 0;
-  return scenario.steps.map((step) => {
-    const start = end;
-    end += step.duration;
-    return { ...step, start, end };
-  });
-}
+export { getTimeline } from "../flow/timeline.js";

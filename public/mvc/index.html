@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101021">
+  <meta name="description" content="ASP.NET Core MVC のミドルウェア、フィルター、アクションの動きを、図とシナリオで学ぶ。">
+  <title>MVC Flow | Codex Lab</title>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="stylesheet" href="../flow/styles.css">
+  <link rel="stylesheet" href="../flow/sequence.css">
+  <link rel="stylesheet" href="./diagram.css">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body class="mvc-flow">
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="portal-link" href="../" aria-label="Codex Lab ポータル">
+        <span class="back-arrow" data-icon="back" aria-hidden="true"></span>
+        <span>Codex Lab</span>
+      </a>
+      <span class="example-tag"><i aria-hidden="true"></i>ASP.NET Core MVC</span>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="intro" aria-labelledby="title">
+      <div>
+        <h1 id="title">MVC Flow</h1>
+        <p>ミドルウェアの入口から、MVC の処理を経てレスポンスが返るまで。</p>
+      </div>
+      <button class="outline-button share-button" type="button" id="share"><span data-icon="link"></span>ステップを共有</button>
+    </section>
+
+    <section class="scenario-picker" aria-labelledby="scenario-title">
+      <h2 id="scenario-title">シナリオを選ぶ</h2>
+      <div class="scenario-options" id="scenario-options" role="group" aria-labelledby="scenario-title"></div>
+    </section>
+
+    <div class="workbench">
+      <section class="panel topology-panel" aria-labelledby="topology-title">
+        <div class="panel-heading">
+          <div>
+            <h2 id="topology-title">リクエストの処理経路</h2>
+            <p id="scenario-summary"></p>
+            <p id="scenario-condition" class="scenario-condition"></p>
+          </div>
+          <div class="scenario-result"><span>最終結果</span><strong class="outcome-chip" id="scenario-outcome"></strong></div>
+        </div>
+        <div id="topology"></div>
+        <div class="playback">
+          <div class="playback-buttons" role="group" aria-label="再生とステップ移動">
+            <button type="button" class="icon-button" id="previous" title="前のステップ" aria-label="前のステップ"><span data-icon="previous"></span></button>
+            <button type="button" class="icon-button play-button" id="play" title="再生" aria-label="再生"><span data-icon="play"></span></button>
+            <button type="button" class="icon-button" id="next" title="次のステップ" aria-label="次のステップ"><span data-icon="next"></span></button>
+          </div>
+          <div class="scrub">
+            <label class="sr-only" for="scrubber">処理ステップ</label>
+            <input id="scrubber" type="range" min="1" max="2" value="1" step="1">
+            <div class="scrub-meta"><span>開始</span><output id="playback-position" for="scrubber"></output><span>終了</span></div>
+          </div>
+          <label class="speed-control"><span class="sr-only">再生速度</span><select id="speed">
+            <option value="0.5">0.5×</option>
+            <option value="1" selected>1×</option>
+            <option value="1.5">1.5×</option>
+            <option value="2">2×</option>
+          </select></label>
+        </div>
+      </section>
+
+      <aside class="panel detail-panel" aria-labelledby="detail-heading">
+        <div class="panel-heading detail-heading">
+          <h2 id="detail-heading">ステップの詳細</h2>
+          <span class="step-number" id="step-number"></span>
+        </div>
+        <div class="detail-body">
+          <div class="detail-title">
+            <span class="protocol-chip" id="step-layer"></span>
+            <h3 id="step-title"></h3>
+            <p id="step-description"></p>
+          </div>
+          <dl class="transfer">
+            <div><dt>呼び出し元</dt><dd id="step-from"></dd></div>
+            <div><dt>処理先</dt><dd id="step-to"></dd></div>
+          </dl>
+          <div class="detail-data">
+            <h4>この処理のポイント</h4>
+            <dl id="step-data"></dl>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <section class="panel sequence-panel" aria-labelledby="sequence-title">
+      <div class="panel-heading sequence-heading">
+        <div>
+          <h2 id="sequence-title">リクエストの流れ</h2>
+          <p>行を選ぶと、その処理が図と詳細に表示されます。</p>
+        </div>
+        <div class="sequence-time"><span>処理時間の例</span><strong id="timeline-duration"></strong></div>
+      </div>
+      <div id="sequence"></div>
+    </section>
+
+    <details class="panel mvc-reference">
+      <summary>ミドルウェアとフィルターの違い</summary>
+      <div class="mvc-reference-grid">
+        <div>
+          <h3>ミドルウェアは MVC の外側</h3>
+          <p><code>await next()</code> より前でリクエストを処理し、後続の処理が正常に戻ればその後に続きます。後続を呼ばず、そこで応答を返すこともできます。</p>
+        </div>
+        <div>
+          <h3>フィルターは MVC の実行パイプライン内</h3>
+          <p>選ばれたアクションの実行前後や結果の実行前後で処理します。たとえばアクションフィルターはアクション呼び出しを囲み、結果フィルターは <code>ViewResult</code> などの実行を囲みます。</p>
+        </div>
+      </div>
+      <div class="references">
+        <a href="https://learn.microsoft.com/ja-jp/aspnet/core/fundamentals/middleware/">ミドルウェアの公式ドキュメント ↗</a>
+        <a href="https://learn.microsoft.com/ja-jp/aspnet/core/mvc/controllers/filters">フィルターの公式ドキュメント ↗</a>
+      </div>
+    </details>
+
+    <footer class="footer">
+      <a href="../">Codex Lab</a>
+      <p>ASP.NET Core MVC の構成例です。処理順はアプリの設定により変わります。</p>
+    </footer>
+  </main>
+
+  <dialog id="share-dialog" class="share-dialog" aria-labelledby="share-title">
+    <form method="dialog">
+      <h2 id="share-title">ステップを共有</h2>
+      <p>このリンクを開くと、選択したシナリオとステップが表示されます。</p>
+      <label for="share-url">共有リンク</label>
+      <input id="share-url" type="text" readonly>
+      <div class="dialog-actions">
+        <button type="button" class="play-button outline-button" id="copy"><span data-icon="copy"></span>コピー</button>
+        <button type="submit" class="outline-button">閉じる</button>
+      </div>
+      <p role="status" id="share-status"></p>
+    </form>
+  </dialog>
+</body>
+</html>

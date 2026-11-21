@@ -1,0 +1,287 @@
+.mvc-diagram {
+  --mvc-route-accent: #80d9ff;
+  --mvc-route-fill: #203c51;
+  --mvc-route-text: #eaf1ff;
+  --mvc-route-muted: #a7b7d1;
+  color: var(--mvc-route-text);
+  min-width: 0;
+}
+
+.mvc-diagram[data-category="routing"] {
+  --mvc-route-accent: #a2bcff;
+  --mvc-route-fill: #293658;
+}
+
+.mvc-diagram[data-category="filter"] {
+  --mvc-route-accent: #cfb2ff;
+  --mvc-route-fill: #372d54;
+}
+
+.mvc-diagram[data-category="binding"] {
+  --mvc-route-accent: #91e6cf;
+  --mvc-route-fill: #204340;
+}
+
+.mvc-diagram[data-category="action"] {
+  --mvc-route-accent: #ffd093;
+  --mvc-route-fill: #4a3629;
+}
+
+.mvc-diagram[data-category="result"] {
+  --mvc-route-accent: #b8df9b;
+  --mvc-route-fill: #2e4436;
+}
+
+.mvc-diagram[data-category="error"] {
+  --mvc-route-accent: #ffb0c5;
+  --mvc-route-fill: #4a2c43;
+}
+
+.mvc-diagram-stage {
+  position: relative;
+  height: clamp(276px, 32vw, 335px);
+  overflow: hidden;
+  border: 1px solid #2d3654;
+  border-radius: 12px;
+  background:
+    radial-gradient(circle, #66769d49 1px, transparent 1px) 0 0 / 16px 16px,
+    radial-gradient(ellipse at 73% 40%, #232740, #111a2a 75%);
+}
+
+.mvc-diagram-frame {
+  position: absolute;
+  left: 28.4%;
+  right: 3%;
+  border: 1px solid #465273;
+  border-radius: 10px;
+}
+
+.mvc-diagram-frame--app {
+  top: 5%;
+  bottom: 3%;
+  background: #1b284251;
+}
+
+.mvc-diagram-frame--mvc {
+  top: 44.2%;
+  bottom: 3%;
+  border-color: #665283;
+  border-radius: 0 0 10px 10px;
+  background: #34284956;
+}
+
+.mvc-diagram-frame-label {
+  position: absolute;
+  top: 5px;
+  left: 7px;
+  color: #c0ccec;
+  font-size: 9px;
+  font-weight: 650;
+  letter-spacing: .04em;
+  line-height: 1.3;
+}
+
+.mvc-diagram-frame--mvc .mvc-diagram-frame-label { color: #dbc4ff; }
+
+.mvc-diagram-arrows,
+.mvc-diagram-nodes {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.mvc-diagram-nodes {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.mvc-diagram-line,
+.mvc-diagram-active-line {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.mvc-diagram-line {
+  stroke: #5b6e94;
+  stroke-width: 1.3px;
+  stroke-dasharray: 3 5;
+  opacity: .78;
+}
+
+.mvc-diagram-line--visited { stroke: #98a8c7; stroke-dasharray: none; }
+.mvc-diagram-line--unused { opacity: .33; }
+
+.mvc-diagram-active-line {
+  stroke: var(--mvc-route-accent);
+  stroke-width: 2px;
+  filter: drop-shadow(0 0 5px var(--mvc-route-accent));
+}
+
+.mvc-diagram-arrowhead { fill: var(--mvc-route-accent); }
+.mvc-diagram-pulse {
+  fill: #f7fbff;
+  stroke: var(--mvc-route-accent);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 0 5px var(--mvc-route-accent));
+}
+
+.mvc-diagram-node {
+  position: absolute;
+  top: var(--node-y);
+  left: var(--node-x);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 25.6%;
+  height: 18%;
+  min-width: 0;
+  padding: 5px 8px;
+  transform: translate(-50%, -50%);
+  border: 1px solid #4b5878;
+  border-radius: 9px;
+  background: #151f31;
+  box-shadow: 0 5px 14px #0b1120a6;
+}
+
+.mvc-diagram-node--active {
+  border-color: var(--mvc-route-accent);
+  background: var(--mvc-route-fill);
+  box-shadow: 0 0 13px color-mix(in srgb, var(--mvc-route-accent) 18%, transparent);
+}
+
+.mvc-diagram-node--unused {
+  border-style: dashed;
+  border-color: #48536d;
+  color: #b7c3dc;
+  background: #172033;
+}
+
+.mvc-diagram-icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #415478;
+  border-radius: 7px;
+  background: #202c45;
+  color: #bfd0f4;
+}
+
+.mvc-diagram-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.55;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.mvc-diagram-node--active .mvc-diagram-icon {
+  color: var(--mvc-route-accent);
+  border-color: color-mix(in srgb, var(--mvc-route-accent) 45%, transparent);
+  background: color-mix(in srgb, var(--mvc-route-accent) 12%, #151e32);
+}
+
+.mvc-diagram-node-label { display: grid; min-width: 0; gap: 1px; }
+
+.mvc-diagram-node-name {
+  font-size: clamp(10px, 1vw, 13px);
+  font-weight: 700;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.mvc-diagram-node-role {
+  color: var(--mvc-route-muted);
+  font-size: 9px;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.mvc-diagram-node-status {
+  position: absolute;
+  top: -9px;
+  right: 5px;
+  padding: 2px 5px;
+  border: 1px solid #4a5976;
+  border-radius: 5px;
+  background: #202b41;
+  color: #c4cce3;
+  font-size: 8px;
+  font-weight: 700;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+.mvc-diagram-node--active .mvc-diagram-node-status {
+  color: #151c34;
+  background: var(--mvc-route-accent);
+  border-color: var(--mvc-route-accent);
+}
+
+.mvc-diagram-caption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 6px 3px 0;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.mvc-diagram-phase {
+  flex: none;
+  padding: 2px 6px;
+  border: 1px solid #486788;
+  border-radius: 5px;
+  color: #bfdaff;
+  background: #223754;
+  font-size: 9px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.mvc-diagram-phase[data-phase="unwind"] {
+  color: #dec7ff;
+  background: #352951;
+  border-color: #685484;
+}
+
+.mvc-diagram-phase[data-phase="short-circuit"] {
+  color: #ffd0dc;
+  background: #482c44;
+  border-color: #88566d;
+}
+
+.mvc-diagram-direction { overflow-wrap: anywhere; }
+
+@media (max-width: 650px) {
+  .mvc-diagram-stage { background-size: 13px 13px, auto; }
+  .mvc-diagram-node {
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+    padding: 4px 3px;
+    text-align: center;
+  }
+  .mvc-diagram-icon { width: 21px; height: 21px; border-radius: 5px; }
+  .mvc-diagram-icon svg { width: 14px; height: 14px; }
+  .mvc-diagram-node-role { display: none; }
+  .mvc-diagram-frame-label { left: 4px; }
+  .mvc-diagram-frame--mvc .mvc-diagram-frame-label { right: 5px; left: auto; }
+}
+
+@media (max-width: 375px) {
+  .mvc-diagram-node-name { font-size: 9px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mvc-diagram-pulse { display: none; }
+}

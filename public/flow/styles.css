@@ -76,7 +76,8 @@ h1, h2, h3, h4, p, dl, dd { margin: 0; }
 .panel-heading .scenario-condition { color: var(--quiet); font-size: 10px; }
 .scenario-result { flex: 0 0 auto; max-width: 40%; display: grid; gap: 4px; text-align: right; color: var(--quiet); font-size: 9px; }
 .outcome-chip { color: #91e6c5; background: #1c3637; border: 1px solid #355753; border-radius: 7px; padding: 4px 8px; font: 650 10px/1.35 var(--sans); text-align: center; overflow-wrap: anywhere; }
-.outcome-chip[data-error="true"] { color: #ffb3bf; background: #3a2732; border-color: #6e414e; }
+.outcome-chip[data-kind$="-error"] { color: #ffb3bf; background: #3a2732; border-color: #6e414e; }
+.outcome-chip[data-kind="redirect"] { color: #f6d393; background: #3b302c; border-color: #685447; }
 
 #topology { margin: 0 11px; }
 .playback { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 13px; min-height: 66px; padding: 10px 14px; }

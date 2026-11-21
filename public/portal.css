@@ -98,7 +98,7 @@ h1, h2, p { margin: 0; }
 
 .app-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
 }
 
@@ -117,6 +117,12 @@ h1, h2, p { margin: 0; }
   transition: border-color .18s ease, background-color .18s ease;
 }
 
+.mvc-card {
+  --accent: #d9c0ff;
+  --accent-border: #675187;
+  --accent-tint: #382853;
+}
+
 .flow-card {
   --accent: #a0d6ff;
   --accent-border: #456482;
@@ -133,6 +139,8 @@ h1, h2, p { margin: 0; }
   border-color: var(--accent-border);
   background: #1f241c;
 }
+
+.mvc-card:hover, .mvc-card:focus-visible { background: #25212c; }
 
 .flow-card:hover, .flow-card:focus-visible { background: #1d2628; }
 
@@ -158,6 +166,15 @@ h1, h2, p { margin: 0; }
 }
 
 .app-card:hover .card-art::before { transform: scale(1.035); }
+
+.mvc-art {
+  border-bottom-color: #564470;
+  background: #251a38;
+}
+
+.mvc-art::before {
+  background-image: linear-gradient(105deg, #26183bb3, #46336b14 70%), url("./assets/mvc-flow.webp");
+}
 
 .flow-art {
   border-bottom-color: #40556e;
@@ -301,17 +318,6 @@ h1, h2, p { margin: 0; }
   .shell { width: calc(100% - 58px); }
   .main-content { padding-top: 50px; }
   .card-content { padding-inline: 19px; }
-}
-
-@media (661px <= width <= 950px) {
-  .app-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .flow-card {
-    display: grid;
-    grid-column: span 2;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .flow-card .card-art { border-right: 1px solid #40556e; border-bottom: 0; }
-  .flow-card .card-content { padding-inline: 24px; }
 }
 
 @media (max-width: 660px) {

@@ -1,7 +1,8 @@
 # Codex Lab
 
-ポータルから、3つのブラウザーアプリを開けます。
+ポータルから、4つのブラウザーアプリを開けます。
 
+- **MVC Flow** (`/mvc/`) は、ASP.NET Core MVC のミドルウェア、ルーティング、フィルター、アクションの処理順を可視化します。
 - **Flow Atlas** (`/network/`) は、DNS から HTTP 応答までの通信経路と順序を可視化します。
 - **Header Guard** (`/security/`) は、HTTP レスポンスヘッダーの防御設定を点検します。
 - **YOSORA / 夜空** (`/yosora/`) は、観測地と日時から星空を描き、天体の観測計画と記録を作れます。
@@ -22,6 +23,14 @@ docker compose up --build
 2. **Actions → Deploy Codex Lab to GitHub Pages → Run workflow** から、`main` を選んで実行します。以降は `public/` の変更を `main` に push すると自動更新されます。
 
 公開先の URL は **Settings → Pages** で確認できます。このリポジトリの標準 URL は `https://daigo0001.github.io/codex_fullpower/` です。Docker 版と GitHub Pages 版では、お気に入りと観測ノートの保存領域が別になります。
+
+## MVC Flow の使い方
+
+1. 通常の GET、認可での短絡、入力エラーの再表示、アクションの例外、ビュー描画の例外からシナリオを選びます。
+2. 再生、ステップ送り、またはシーケンス図の各行で処理を進めます。図ではミドルウェアと MVC の境界、リクエストとレスポンスの方向、処理が打ち切られる位置を確認できます。
+3. 「ステップを共有」で同じシナリオとステップを開けるリンクをコピーできます。
+
+説明用に設定した ASP.NET Core MVC のパイプラインをブラウザーで再現しています。処理時間は例示値です。実際の順序や短絡時のレスポンスはアプリの構成によって変わります。[ミドルウェアの公式ドキュメント](https://learn.microsoft.com/ja-jp/aspnet/core/fundamentals/middleware/) · [フィルターの公式ドキュメント](https://learn.microsoft.com/ja-jp/aspnet/core/mvc/controllers/filters)
 
 ## Flow Atlas の使い方
 
