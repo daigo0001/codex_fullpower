@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0e17">
+  <meta name="description" content="観測地と時刻に合わせた星図で、今夜の天体観測を計画する。">
+  <title>YOSORA — 天体観測プランナー</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/js/app.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#sky" aria-label="YOSORA 星図">
+        <span class="brand-mark" data-icon="sparkles" aria-hidden="true"></span>
+        <span>YOSORA</span>
+      </a>
+      <nav class="main-nav" aria-label="メインメニュー">
+        <a href="#sky" data-view="sky"><span data-icon="compass"></span>星図</a>
+        <a href="#favorites" data-view="favorites"><span data-icon="bookmark"></span>お気に入り<span class="favorite-count" hidden></span></a>
+        <a href="#journal" data-view="journal"><span data-icon="book"></span>観測ノート</a>
+      </nav>
+      <button class="header-location" type="button" data-open-location><span data-icon="pin"></span><span id="header-location"></span><span class="header-location-chevron" data-icon="chevronDown"></span></button>
+    </div>
+  </header>
+
+  <main class="page">
+    <section id="sky-view" aria-label="星図と観測計画">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-content">
+          <p class="hero-date"><span class="date-line" aria-hidden="true"></span><time id="hero-date"></time></p>
+          <h1 id="hero-title">今夜、星を見に行こう。</h1>
+          <p>観測地の星空をたどり、見たい天体が昇る時刻を探そう。</p>
+        </div>
+      </section>
+
+      <section class="conditions" aria-label="観測条件">
+        <button class="condition condition-button" type="button" data-open-location>
+          <span class="condition-icon location-icon" data-icon="pin"></span>
+          <span class="condition-copy"><span class="condition-label">観測地</span><strong id="location-name"></strong><span class="condition-sub" id="location-coords"></span></span>
+          <span class="condition-arrow" data-icon="chevronRight"></span>
+        </button>
+        <div class="condition condition-date">
+          <span class="condition-icon time-icon" data-icon="calendar"></span>
+          <div class="condition-copy"><label class="condition-label" for="night-date">観測日</label><input id="night-date" type="date"><span class="condition-sub" id="timezone"></span></div>
+        </div>
+        <div class="condition">
+          <span class="condition-icon moon-icon" data-icon="moon"></span>
+          <div class="condition-copy"><span class="condition-label">月相</span><strong id="moon-phase"></strong><span class="condition-sub" id="moon-illumination"></span></div>
+        </div>
+        <div class="condition">
+          <span class="condition-icon dark-icon" data-icon="sunset"></span>
+          <div class="condition-copy"><span class="condition-label">天文薄明の終わり</span><strong id="dark-start"></strong><span class="condition-sub">太陽高度 −18°</span></div>
+        </div>
+      </section>
+
+      <div class="dashboard">
+        <section class="card sky-panel" aria-labelledby="map-title">
+          <div class="panel-header map-header">
+            <div>
+              <p class="section-kicker">SKY ATLAS</p>
+              <h2 id="map-title">星空マップ</h2>
+            </div>
+            <div class="segmented" id="filters" role="group" aria-label="天体の種類">
+              <button type="button" data-filter="all" aria-pressed="true">すべて</button>
+              <button type="button" data-filter="star" aria-pressed="false">恒星</button>
+              <button type="button" data-filter="planet" aria-pressed="false">惑星・月</button>
+              <button type="button" data-filter="deep-sky" aria-pressed="false">深空天体</button>
+            </div>
+          </div>
+          <div class="map-frame" id="map-frame">
+            <canvas id="sky-map" tabindex="0" aria-label="星空マップ。上が北、左が東。天体は天体を探す一覧からも選択できます。"></canvas>
+            <div class="map-time"><span class="live-dot" aria-hidden="true"></span><time id="map-time"></time></div>
+            <div class="map-tools" role="group" aria-label="星図の操作">
+              <button class="icon-button" id="zoom-in" type="button" title="拡大" aria-label="拡大"><span data-icon="plus"></span></button>
+              <button class="icon-button" id="zoom-out" type="button" title="縮小" aria-label="縮小"><span data-icon="minus"></span></button>
+              <button class="icon-button" id="reset-map" type="button" title="表示をリセット" aria-label="表示をリセット"><span data-icon="maximize"></span></button>
+            </div>
+            <div class="map-key"><span><i class="key-star"></i>恒星</span><span><i class="key-planet"></i>惑星・月</span><span><i class="key-deep"></i>深空天体</span></div>
+            <div class="map-options" role="group" aria-label="星図の表示">
+              <button type="button" id="toggle-grid" aria-label="座標グリッド" title="座標グリッド" aria-pressed="true"><span data-icon="grid"></span></button>
+              <button type="button" id="toggle-constellations" aria-label="星座線" title="星座線" aria-pressed="true"><span data-icon="constellation"></span></button>
+            </div>
+            <div class="map-tooltip" id="map-tooltip" hidden></div>
+          </div>
+          <div class="time-controller">
+            <button id="play-time" class="play-button" type="button" title="星空の動きを再生" aria-label="星空の動きを再生"><span data-icon="play"></span></button>
+            <div class="time-slider">
+              <label class="sr-only" for="timeline">観測時刻</label>
+              <input type="range" id="timeline" min="0" max="720" step="5" value="180">
+              <div class="ticks" aria-hidden="true"><span>18:00</span><span>21:00</span><span>00:00</span><span>03:00</span><span>06:00</span></div>
+            </div>
+            <output class="time-output" id="time-output" for="timeline"></output>
+          </div>
+        </section>
+
+        <aside class="card target-panel" aria-labelledby="target-heading">
+          <div class="panel-header target-header">
+            <div>
+              <p class="section-kicker">SELECTED TARGET</p>
+              <h2 id="target-heading">観測ターゲット</h2>
+            </div>
+            <button class="icon-button save-button" id="save-target" type="button" title="お気に入りに追加" aria-label="お気に入りに追加" aria-pressed="false"><span data-icon="bookmark"></span></button>
+          </div>
+          <div class="target-body" id="target-body">
+            <div class="target-identity">
+              <span class="target-emblem" id="target-emblem" aria-hidden="true" data-icon="sparkles"></span>
+              <div>
+                <div class="target-type" id="target-type"></div>
+                <h3 id="target-name"></h3>
+                <p id="target-english"></p>
+              </div>
+            </div>
+            <p class="target-description" id="target-description"></p>
+            <dl class="target-metrics">
+              <div><dt>高度</dt><dd id="target-altitude"></dd></div>
+              <div><dt>方位</dt><dd id="target-azimuth"></dd></div>
+              <div><dt>等級</dt><dd id="target-magnitude"></dd></div>
+            </dl>
+            <div class="altitude-heading">
+              <h3>高度の推移</h3><span><i></i>観測しやすい時間</span>
+            </div>
+            <svg class="altitude-chart" id="altitude-chart" viewBox="0 0 320 115" role="img" aria-label="18時から翌朝6時までの高度の推移"></svg>
+            <div class="window-summary" id="window-summary"><span data-icon="clock"></span><div><span>観測の目安</span><strong id="target-window"></strong><small>高度 20° 以上・太陽高度 −12° 以下</small></div></div>
+          </div>
+        </aside>
+      </div>
+
+      <section class="card catalog-panel" aria-labelledby="catalog-title">
+        <div class="panel-header catalog-header">
+          <div><p class="section-kicker">OBJECT CATALOG</p><h2 id="catalog-title">天体を探す</h2></div>
+          <label class="search"><span data-icon="search"></span><span class="sr-only">天体名で検索</span><input id="catalog-search" type="search" placeholder="天体名で検索"></label>
+        </div>
+        <div class="catalog-list" id="catalog-list"></div>
+        <button type="button" class="catalog-more" id="catalog-more" aria-expanded="false">すべての天体を表示<span data-icon="chevronDown"></span></button>
+      </section>
+    </section>
+    <section id="library-view" hidden aria-label="お気に入りと観測ノート"></section>
+    <footer class="site-footer"><span>YOSORA</span><span>星図と観測時刻は概算です。天気や地平線の遮蔽物は含みません。</span></footer>
+  </main>
+
+  <dialog class="location-dialog" id="location-dialog" aria-labelledby="location-dialog-title">
+    <form id="location-form">
+      <div class="dialog-heading"><h2 id="location-dialog-title">観測地を変更</h2><button type="button" class="icon-button" id="close-location" aria-label="閉じる"><span data-icon="x"></span></button></div>
+      <div class="field"><label for="location-select">観測地</label><select id="location-select"></select></div>
+      <div id="custom-location" hidden>
+        <div class="coordinate-fields">
+          <label class="field">緯度 (°)<input id="custom-latitude" type="number" min="-90" max="90" step="any" placeholder="35.6762"></label>
+          <label class="field">経度 (°)<input id="custom-longitude" type="number" min="-180" max="180" step="any" placeholder="139.6503"></label>
+        </div>
+        <div class="field"><label for="custom-timezone">タイムゾーン</label><select id="custom-timezone"></select></div>
+      </div>
+      <button type="submit" class="primary-button">この観測地を使う</button>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>

@@ -1,0 +1,7 @@
+services:
+  yosora:
+    build: .
+    init: true
+    read_only: true
+    ports:
+      - "127.0.0.1:${YOSORA_PORT:-8080}:8080"
