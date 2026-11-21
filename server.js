@@ -28,6 +28,11 @@ function respond(response, method, status, body, contentType = 'text/plain; char
   response.end(method === 'HEAD' ? undefined : body);
 }
 
+function isWithin(root, filename) {
+  const path = relative(root, filename);
+  return !isAbsolute(path) && path !== '..' && !path.startsWith(`..${sep}`);
+}
+
 export function createAppServer({ publicDirectory = defaultPublicDirectory } = {}) {
   return createServer(async (request, response) => {
     const { method } = request;
@@ -78,17 +83,32 @@ export function createAppServer({ publicDirectory = defaultPublicDirectory } = {
         return;
       }
 
-      const filename = await realpath(resolve(root, path === '/' ? 'index.html' : segments.join('/')));
-      const relativePath = relative(root, filename);
-      if (!relativePath || isAbsolute(relativePath) || relativePath === '..' || relativePath.startsWith(`..${sep}`)) {
+      const requestedFile = await realpath(resolve(root, segments.join('/')));
+      if (!isWithin(root, requestedFile)) {
         respond(response, method, 404, 'Not found\n');
         return;
       }
 
-      const metadata = await stat(filename);
+      const requestedMetadata = await stat(requestedFile);
+      const directory = requestedMetadata.isDirectory();
+      const filename = directory ? await realpath(resolve(requestedFile, 'index.html')) : requestedFile;
+      if (!isWithin(root, filename)) {
+        respond(response, method, 404, 'Not found\n');
+        return;
+      }
+      const metadata = directory ? await stat(filename) : requestedMetadata;
       const contentType = contentTypes[extname(filename).toLowerCase()];
       if (!metadata.isFile() || !contentType) {
         respond(response, method, 404, 'Not found\n');
+        return;
+      }
+
+      if (directory && !path.endsWith('/')) {
+        const queryStart = request.url.indexOf('?');
+        const query = queryStart >= 0 ? request.url.slice(queryStart) : '';
+        const location = `/${segments.map(encodeURIComponent).join('/')}/${query}`;
+        response.writeHead(308, { Location: location, 'Content-Length': 0 });
+        response.end();
         return;
       }
 
@@ -126,7 +146,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   const port = Number(process.env.PORT || 8080);
   const server = createAppServer();
   server.listen(port, host, () => {
-    console.log(`YOSORA is listening on ${host}:${server.address().port}`);
+    console.log(`Codex Lab is listening on ${host}:${server.address().port}`);
   });
 
   for (const signal of ['SIGINT', 'SIGTERM']) {

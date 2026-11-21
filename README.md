@@ -1,6 +1,9 @@
-# YOSORA / 夜空
+# Codex Lab
 
-観測する場所と時刻を選んで、その夜に見える星や惑星を探す天体観測プランナーです。気になる天体の高度と観測しやすい時間帯を確認し、観測リストや日誌に記録できます。
+ポータルから、2つのブラウザーアプリを開けます。
+
+- **Header Guard** (`/security/`) は、HTTP レスポンスヘッダーの防御設定を点検します。
+- **YOSORA / 夜空** (`/yosora/`) は、観測地と日時から星空を描き、天体の観測計画と記録を作れます。
 
 ## Docker で起動
 
@@ -15,11 +18,18 @@ docker compose up --build
 ## GitHub Pages で公開
 
 1. リポジトリの **Settings → Pages** で、**Build and deployment → Source** を **GitHub Actions** に設定します。
-2. **Actions → Deploy YOSORA to GitHub Pages → Run workflow** から、`main` を選んで実行します。以降は `public/` の変更を `main` に push すると自動更新されます。
+2. **Actions → Deploy Codex Lab to GitHub Pages → Run workflow** から、`main` を選んで実行します。以降は `public/` の変更を `main` に push すると自動更新されます。
 
 公開先の URL は **Settings → Pages** で確認できます。このリポジトリの標準 URL は `https://daigo0001.github.io/codex_fullpower/` です。Docker 版と GitHub Pages 版では、お気に入りと観測ノートの保存領域が別になります。
 
-## 夜空の使い方
+## Header Guard の使い方
+
+1. 自分のサイトを開き、ブラウザーの開発者ツールの **Network** タブで確認したいレスポンスのヘッダーをコピーします。画面のサンプルでも試せます。
+2. Header Guard に貼り付けて点検します。CSP、HSTS、フレーム埋め込み制御、Cookie の属性などを確認し、確認結果や見直し箇所を Markdown で保存できます。
+
+入力は端末のブラウザー内で処理します。レポートにはヘッダーの元の値や Cookie の値を含めません。判定はコピーしたレスポンスを対象にした設定の目安です。サイト全体の脆弱性評価や TLS 設定の検査は対象外です。
+
+## YOSORA の使い方
 
 1. 観測地と日時を指定します。星図は中心が天頂、外周が地平線で、上が北、左が東です。
 2. 星図や天体一覧で天体を選ぶと、高度や方位、時間による高度の変化を確認できます。
@@ -48,4 +58,4 @@ npm start
 - 星雲や星団などの座標と等級は Mattia Verga の [OpenNGC](https://github.com/mattiaverga/OpenNGC)（M45 を含む補遺も使用）から選んだものです。
 - `public/js/faint-stars.js` と `public/js/catalog.js` の上記データベース由来のデータは [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) で提供します。
 - 惑星の位置は、1800 年から 2050 年までの [NASA/JPL の近似軌道要素](https://ssd.jpl.nasa.gov/planets/approx_pos.html) を使って計算します。月の位置には Jean Meeus『Astronomical Algorithms』第 47 章の主要な周期項を使い、観測地点からの視差を補正します。
-- 背景の風景画像は生成画像です。
+- アプリカードと YOSORA の背景画像は生成画像です。

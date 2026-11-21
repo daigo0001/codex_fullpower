@@ -16,10 +16,14 @@ before(async () => {
   directory = await mkdtemp(join(tmpdir(), 'yosora-server-'));
   const publicDirectory = join(directory, 'public');
   await mkdir(join(publicDirectory, 'js'), { recursive: true });
+  await mkdir(join(publicDirectory, 'security'));
+  await mkdir(join(publicDirectory, 'external-index'));
   await writeFile(join(publicDirectory, 'index.html'), html);
+  await writeFile(join(publicDirectory, 'security', 'index.html'), '<title>Header Guard</title>');
   await writeFile(join(publicDirectory, 'js', 'app.js'), 'export const sky = true;\n');
   await writeFile(join(directory, 'private.html'), '<p>private</p>');
   await symlink(join(directory, 'private.html'), join(publicDirectory, 'escape.html'));
+  await symlink(join(directory, 'private.html'), join(publicDirectory, 'external-index', 'index.html'));
 
   server = createAppServer({ publicDirectory });
   server.listen(0, '127.0.0.1');
@@ -68,6 +72,16 @@ test('reports readiness and handles HEAD without a body', async () => {
   assert.equal(await page.text(), '');
 });
 
+test('serves app indexes and preserves queries when adding the trailing slash', async () => {
+  const redirect = await fetch(`${origin}/%73ecurity?view=report`, { redirect: 'manual' });
+  assert.equal(redirect.status, 308);
+  assert.equal(redirect.headers.get('location'), '/security/?view=report');
+  const app = await fetch(`${origin}/security/`);
+  assert.equal(app.status, 200);
+  assert.equal(await app.text(), '<title>Header Guard</title>');
+  assert.equal(await rawStatus('/js/'), 404);
+});
+
 test('rejects unsupported methods, paths that escape public, and unknown assets', async () => {
   const post = await fetch(`${origin}/`, { method: 'POST' });
   assert.equal(post.status, 405);
@@ -78,5 +92,6 @@ test('rejects unsupported methods, paths that escape public, and unknown assets'
   assert.equal(await rawStatus('/%5c../private.html'), 400);
   assert.equal(await rawStatus('/%zz'), 400);
   assert.equal(await rawStatus('/escape.html'), 404);
+  assert.equal(await rawStatus('/external-index/'), 404);
   assert.equal(await rawStatus('/missing.png'), 404);
 });

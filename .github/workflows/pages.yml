@@ -1,4 +1,4 @@
-name: Deploy YOSORA to GitHub Pages
+name: Deploy Codex Lab to GitHub Pages
 
 on:
   push:

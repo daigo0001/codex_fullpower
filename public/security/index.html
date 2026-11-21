@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1017">
+  <meta name="description" content="HTTP レスポンスヘッダーを貼り付けて、防御設定と見直し箇所をブラウザーで確認できます。">
+  <title>Header Guard | Codex Lab</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="frame topbar-inner">
+      <a class="portal-link" href="../"><span class="back-arrow" aria-hidden="true">←</span> Codex Lab <span class="portal-label">ポータル</span></a>
+      <span class="local-indicator"><i aria-hidden="true"></i>ブラウザー内で処理</span>
+    </div>
+  </header>
+
+  <main class="frame">
+    <section class="intro" aria-labelledby="title">
+      <div class="intro-copy">
+        <h1 id="title">Header Guard</h1>
+        <p>HTTP レスポンスヘッダーの防御設定を点検する。</p>
+      </div>
+      <details class="input-guide">
+        <summary>ヘッダーの取得方法</summary>
+        <p>対象ページの開発者ツールで「ネットワーク」を開いて再読み込みします。対象の通信を選択し、「ヘッダー」にあるレスポンスヘッダーをコピーしてください。</p>
+      </details>
+    </section>
+
+    <div class="workbench">
+      <section class="panel input-panel" aria-labelledby="input-title">
+        <div class="panel-top">
+          <div>
+            <h2 id="input-title">レスポンスヘッダー</h2>
+            <p>ヘッダーを貼り付けるか、テキストファイルを読み込む</p>
+          </div>
+          <button type="button" class="button outline-button" id="sample">サンプル</button>
+        </div>
+        <form id="scan">
+          <div class="editor" id="drop-zone">
+            <div class="editor-top"><span class="editor-file"><span class="text-file-icon" aria-hidden="true"></span>headers.txt</span><span id="editor-mode">サンプル</span></div>
+            <div class="editor-body">
+              <pre id="line-numbers" class="line-numbers" aria-hidden="true"></pre>
+              <textarea id="header-input" aria-labelledby="input-title" aria-describedby="input-hint" wrap="off" rows="12" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="HTTP/2 200&#10;content-type: text/html; charset=utf-8&#10;…"></textarea>
+            </div>
+            <div class="editor-bottom"><output id="input-size" for="header-input"></output><span id="input-hint">テキストをドロップできます</span></div>
+          </div>
+          <p id="input-feedback" class="input-feedback" role="status"></p>
+          <div class="editor-actions">
+            <button class="button primary-button" type="submit">診断する <span aria-hidden="true">→</span></button>
+            <label class="button outline-button upload-button" for="file-input">ファイルを開く<input id="file-input" type="file" accept=".txt,.headers,.http,.log,text/plain"></label>
+            <button class="button text-button" type="button" id="clear">クリア</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel report-panel" aria-labelledby="report-title">
+        <div class="panel-top report-top">
+          <div>
+            <h2 id="report-title">診断結果</h2>
+            <p id="report-meta"></p>
+          </div>
+          <button type="button" class="button outline-button" id="download" disabled><span class="download-arrow" aria-hidden="true">↓</span> レポート<span class="download-label">を保存</span></button>
+        </div>
+        <p id="report-status" class="report-status" role="status" hidden></p>
+        <ul id="report-notes" class="report-notes" hidden></ul>
+        <div id="report-content">
+          <div id="report-stats" class="report-stats" aria-label="ステータスで絞り込み" role="group"></div>
+          <div class="findings-header"><h3>チェック項目 <span id="visible-count"></span></h3><button id="show-all" class="button text-button" type="button" hidden>すべて表示</button></div>
+          <div id="findings" class="findings"></div>
+        </div>
+        <p id="empty-report" class="empty-report" hidden>レスポンスヘッダーを入力し、「診断する」を選択してください。</p>
+      </section>
+    </div>
+    <footer class="footer">ページやステータスによって異なる設定は、レスポンスごとに確認できます。</footer>
+  </main>
+</body>
+</html>
