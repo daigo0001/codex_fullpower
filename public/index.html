@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#11130f">
-  <meta name="description" content="Codex Lab のアプリを開く。ASP.NET Core MVC の実行順を学べる MVC Flow、ネットワークを図解する Flow Atlas、HTTP ヘッダーを点検する Header Guard、天体観測プランナー YOSORA。">
+  <meta name="description" content="Codex Lab のアプリを開く。暗号技術の Crypto Lab、ASP.NET Core MVC の MVC Flow、ネットワークの Flow Atlas、HTTP ヘッダーの Header Guard、天体観測の YOSORA。">
   <title>Codex Lab — アプリ一覧</title>
   <link rel="icon" href="./assets/lab-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./portal.css">
@@ -28,6 +28,28 @@
       </div>
 
       <div class="app-grid">
+        <a class="app-card crypto-card" href="./crypto/" aria-labelledby="crypto-title crypto-open">
+          <div class="card-art crypto-art">
+            <span class="app-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15.5 13a5.5 5.5 0 1 0-5.17-3.64L3 16.69V21h4.31L9 19.31V17h2.31l2.05-2.05A5.47 5.47 0 0 0 15.5 13Z"/>
+                <path d="M17 7.5h.01"/>
+              </svg>
+            </span>
+          </div>
+          <div class="card-content">
+            <p class="category"><i aria-hidden="true"></i> 暗号技術</p>
+            <h2 id="crypto-title">Crypto Lab</h2>
+            <p class="description">パスワードハッシュ、共通鍵と公開鍵、ZIP の暗号化、電子署名を用途から学べます。</p>
+            <div class="card-footer">
+              <span class="app-detail">ハッシュ・暗号化のブラウザーデモ</span>
+              <span class="open-label" id="crypto-open">アプリを開く
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+
         <a class="app-card mvc-card" href="./mvc/" aria-labelledby="mvc-title mvc-open">
           <div class="card-art mvc-art">
             <span class="app-icon" aria-hidden="true">

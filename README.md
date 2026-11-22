@@ -1,7 +1,8 @@
 # Codex Lab
 
-ポータルから、4つのブラウザーアプリを開けます。
+ポータルから、5つのブラウザーアプリを開けます。
 
+- **Crypto Lab** (`/crypto/`) は、暗号化・パスワードハッシュ・ZIP・署名を用途別に学べるページです。
 - **MVC Flow** (`/mvc/`) は、ASP.NET Core MVC のミドルウェア、ルーティング、フィルター、アクションの処理順を可視化します。
 - **Flow Atlas** (`/network/`) は、DNS から HTTP 応答までの通信経路と順序を可視化します。
 - **Header Guard** (`/security/`) は、HTTP レスポンスヘッダーの防御設定を点検します。
@@ -23,6 +24,14 @@ docker compose up --build
 2. **Actions → Deploy Codex Lab to GitHub Pages → Run workflow** から、`main` を選んで実行します。以降は `public/` の変更を `main` に push すると自動更新されます。
 
 公開先の URL は **Settings → Pages** で確認できます。このリポジトリの標準 URL は `https://daigo0001.github.io/codex_fullpower/` です。Docker 版と GitHub Pages 版では、お気に入りと観測ノートの保存領域が別になります。
+
+## Crypto Lab の使い方
+
+- **パスワードハッシュ**では、同じ入力に2つの異なるソルトを付け、PBKDF2-HMAC-SHA-256 のハッシュが異なることと、保存済みレコードとの照合を試せます。
+- **共通鍵・公開鍵暗号**では、ブラウザー内の鍵で AES-256-GCM の暗号化・復号・改変検出を試せます。
+- **ZIP の暗号化**では、ZipCrypto、AES ZIP、ヘッダーを暗号化した 7z の違いを確認できます。**署名・TLS**では SHA-256、HMAC、署名の役割を比較します。
+
+実験は HTTPS または `localhost` で動きます。入力や鍵はアプリから外部に送信せず、永続保存も行いません。例の文字列で試せます。ZIP は方式や互換性を学ぶセクションで、ファイルの作成や展開は行いません。
 
 ## MVC Flow の使い方
 

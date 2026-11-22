@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171410">
+  <meta name="description" content="暗号化、パスワードハッシュ、ZIP の暗号化、電子署名を、用途別の解説とブラウザーで動く実験で学ぶ。">
+  <title>Crypto Lab | Codex Lab</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./guide.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="portal-link" href="../" aria-label="Codex Lab ポータル"><span class="back" data-icon="back"></span>Codex Lab</a>
+      <span class="local-badge"><i></i>実験はブラウザー内で処理</span>
+    </div>
+  </header>
+  <main class="shell">
+    <section class="hero" aria-labelledby="page-title">
+      <div>
+        <h1 id="page-title">Crypto Lab</h1>
+        <p>パスワードの保存、ファイルの保護、改ざんの確認。<br class="hero-break"> 用途から暗号技術を選ぶ。</p>
+      </div>
+    </section>
+
+    <div class="workbench">
+      <aside class="rail">
+        <nav class="section-nav" aria-labelledby="nav-title">
+          <h2 id="nav-title">テーマ</h2>
+          <a href="#overview" data-topic="overview"><span data-icon="grid"></span><span>使い分け</span></a>
+          <a href="#password" data-topic="password"><span data-icon="fingerprint"></span><span>パスワードハッシュ</span></a>
+          <a href="#encryption" data-topic="encryption"><span data-icon="lock"></span><span>共通鍵・公開鍵暗号</span></a>
+          <a href="#zip" data-topic="zip"><span data-icon="archive"></span><span>ZIP の暗号化</span></a>
+          <a href="#signatures" data-topic="signatures"><span data-icon="check"></span><span>署名・TLS</span></a>
+        </nav>
+        <div class="rail-note"><span data-icon="key"></span><p>元に戻す必要があるなら暗号化。ログインの照合にはパスワード専用ハッシュ。</p></div>
+      </aside>
+
+      <div class="content">
+        <div class="guide-shell" id="guide"></div>
+
+        <section class="experiment" id="password-demo" aria-labelledby="password-title" hidden>
+          <div class="experiment-header">
+            <div><h2 id="password-title">ソルトが変わるとどうなる？</h2><p>同じ文字列から2件のレコードを作り、保存したレコード A と照合します。</p></div>
+            <span class="experiment-tag">PBKDF2 · SHA-256</span>
+          </div>
+          <div class="experiment-body">
+            <form id="hash-form" class="input-panel" autocomplete="off">
+              <label class="field" for="hash-input"><span>保存する例の文字列</span><input id="hash-input" type="text" value="demo-passphrase-42" maxlength="1024" required autocapitalize="off" spellcheck="false"></label>
+              <button id="hash-generate" class="button primary" type="submit"><span data-icon="fingerprint"></span>ハッシュを2件生成</button>
+            </form>
+
+            <div id="hash-records" class="hash-records" hidden>
+              <section class="record" aria-labelledby="record-a"><h3 id="record-a">レコード A</h3><dl>
+                <div><dt>ソルト</dt><dd><code id="salt-a"></code></dd></div>
+                <div><dt>ハッシュ</dt><dd><code id="hash-a"></code></dd></div>
+              </dl></section>
+              <section class="record" aria-labelledby="record-b"><h3 id="record-b">レコード B</h3><dl>
+                <div><dt>ソルト</dt><dd><code id="salt-b"></code></dd></div>
+                <div><dt>ハッシュ</dt><dd><code id="hash-b"></code></dd></div>
+              </dl></section>
+            </div>
+
+            <form id="verify-form" class="input-panel verify-form" autocomplete="off">
+              <label class="field" for="verify-input"><span>照合する例の文字列</span><input id="verify-input" type="text" value="demo-passphrase-42" maxlength="1024" required autocapitalize="off" spellcheck="false"></label>
+              <button id="hash-verify" class="button secondary" type="submit" disabled>レコード A と照合</button>
+            </form>
+            <p class="status" id="hash-status" role="status"></p>
+          </div>
+        </section>
+
+        <section class="experiment" id="encryption-demo" aria-labelledby="cipher-title" hidden>
+          <div class="experiment-header">
+            <div><h2 id="cipher-title">暗号化・復号・改変検出</h2><p>このタブで作った共通鍵を使い、例のメッセージを暗号化します。</p></div>
+            <span class="experiment-tag">AES-256-GCM</span>
+          </div>
+          <div class="experiment-body">
+            <form id="cipher-form" class="input-panel cipher-input" autocomplete="off">
+              <label class="field" for="cipher-input"><span>例のメッセージ</span><textarea id="cipher-input" rows="2" maxlength="4096" spellcheck="false">次の打ち合わせは金曜の15時です。</textarea></label>
+              <button id="cipher-encrypt" class="button primary" type="submit"><span data-icon="lock"></span>暗号化する</button>
+            </form>
+
+            <div id="cipher-record" class="cipher-record" hidden>
+              <dl>
+                <div><dt>ノンス</dt><dd><code id="cipher-nonce"></code></dd></div>
+                <div><dt>暗号文</dt><dd><code id="cipher-text"></code></dd></div>
+                <div><dt>認証タグ</dt><dd><code id="cipher-tag"></code></dd></div>
+              </dl>
+              <div class="cipher-actions">
+                <button type="button" class="button secondary" id="cipher-decrypt"><span data-icon="key"></span>同じ鍵で復号</button>
+                <button type="button" class="button secondary" id="cipher-tamper"><span data-icon="alert"></span>1ビット変えて復号</button>
+              </div>
+              <pre id="cipher-plaintext" class="plaintext" hidden></pre>
+            </div>
+            <p class="status" id="cipher-status" role="status"></p>
+          </div>
+        </section>
+
+        <section class="experiment" id="zip-check" aria-labelledby="zip-check-title" hidden>
+          <div class="experiment-header">
+            <div><h2 id="zip-check-title">相手に渡す形式を選ぶ</h2><p>圧縮ファイルを共有するときの条件を選びます。</p></div>
+          </div>
+          <div class="archive-body">
+            <label class="field" for="archive-condition"><span>優先する条件</span><select id="archive-condition">
+              <option value="compatible">相手の解凍ソフトが分からない</option>
+              <option value="aes">双方の AES ZIP 対応を確認済み</option>
+              <option value="names">ファイル名やフォルダー名も隠したい</option>
+            </select></label>
+            <div class="archive-advice" role="status"><strong id="archive-title"></strong><p id="archive-advice"></p></div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <footer class="footer"><a href="../">Codex Lab</a><p>実験は学習用です。例の文字列で試せます。</p></footer>
+  </main>
+</body>
+</html>

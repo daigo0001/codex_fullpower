@@ -1,0 +1,204 @@
+.crypto-guide {
+  --cg-ink: var(--ink, #f8eee9);
+  --cg-muted: var(--muted, #c5aba1);
+  --cg-accent: var(--accent, #f7ad83);
+  --cg-line: var(--line, #533c39);
+  --cg-raised: var(--panel-raised, #2a2126);
+  min-width: 0;
+  color: var(--cg-ink);
+}
+
+.crypto-guide h2 {
+  margin: 0 0 .65rem;
+  font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+  letter-spacing: -.025em;
+  line-height: 1.4;
+}
+
+.crypto-guide p {
+  margin: .65rem 0 0;
+  color: var(--cg-muted);
+  font-size: .9rem;
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+}
+
+.crypto-guide .cg-lead {
+  margin: 0;
+  max-width: 68ch;
+}
+
+.crypto-guide .cg-choices,
+.crypto-guide .cg-flow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .7rem;
+  padding: 0;
+  margin: 1.2rem 0 1.25rem;
+  list-style: none;
+}
+
+.crypto-guide .cg-choices > div,
+.crypto-guide .cg-flow > li {
+  min-width: 0;
+  padding: .78rem .85rem;
+  border: 1px solid var(--cg-line);
+  border-radius: .6rem;
+  background: var(--cg-raised);
+}
+
+.crypto-guide .cg-tag,
+.crypto-guide .cg-flow > li > span {
+  display: inline-block;
+  margin-bottom: .36rem;
+  color: var(--cg-accent);
+  font-size: .72rem;
+  font-weight: 700;
+}
+
+.crypto-guide .cg-choices h3,
+.crypto-guide .cg-flow strong {
+  display: block;
+  font-size: .95rem;
+  line-height: 1.5;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.crypto-guide .cg-choices p,
+.crypto-guide .cg-flow p {
+  margin-top: .38rem;
+  font-size: .79rem;
+  line-height: 1.7;
+}
+
+.crypto-guide .cg-flow > li {
+  position: relative;
+  border-top: 2px solid color-mix(in srgb, var(--cg-accent) 65%, var(--cg-line));
+}
+
+.crypto-guide .cg-flow > li + li::before {
+  position: absolute;
+  top: 50%;
+  left: -.72rem;
+  color: var(--cg-accent);
+  background: var(--cg-raised);
+  border-radius: .25rem;
+  font-size: .72rem;
+  line-height: 1;
+  content: "›";
+}
+
+.crypto-guide .cg-table-scroll {
+  overflow-x: auto;
+  margin-top: 1rem;
+  border: 1px solid var(--cg-line);
+  border-radius: .6rem;
+  scrollbar-color: var(--cg-line) var(--cg-raised);
+}
+
+.crypto-guide .cg-table-scroll:focus-visible {
+  outline: 2px solid var(--cg-accent);
+  outline-offset: 2px;
+}
+
+.crypto-guide .cg-table {
+  width: 100%;
+  min-width: 35rem;
+  border-collapse: collapse;
+  font-size: .79rem;
+  line-height: 1.55;
+  text-align: left;
+}
+
+.crypto-guide .cg-table caption {
+  padding: .65rem .8rem;
+  color: var(--cg-ink);
+  font-size: .9rem;
+  font-weight: 700;
+  text-align: left;
+  background: var(--cg-raised);
+}
+
+.crypto-guide .cg-table th,
+.crypto-guide .cg-table td {
+  color: var(--cg-muted);
+  padding: .68rem .8rem;
+  border-top: 1px solid var(--cg-line);
+  vertical-align: top;
+}
+
+.crypto-guide .cg-table thead {
+  background: color-mix(in srgb, var(--cg-raised) 73%, var(--cg-line));
+}
+
+.crypto-guide .cg-table thead th,
+.crypto-guide .cg-table tbody th {
+  color: var(--cg-ink);
+}
+
+.crypto-guide .cg-table tbody th {
+  width: 23%;
+}
+
+.crypto-guide .cg-table small {
+  color: var(--cg-muted);
+}
+
+.crypto-guide .cg-note {
+  margin-top: 1rem;
+  padding: .65rem .85rem;
+  border-left: 2px solid var(--cg-accent);
+  border-radius: 0 .45rem .45rem 0;
+  background: var(--cg-raised);
+  font-size: .83rem;
+}
+
+.crypto-guide .cg-subheading {
+  margin: 1.15rem 0 .55rem;
+  font-size: 1.1rem;
+  line-height: 1.45;
+}
+
+.crypto-guide .cg-combination {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin: .8rem 0;
+}
+
+.crypto-guide .cg-combination span {
+  padding: .26rem .58rem;
+  color: var(--cg-ink);
+  background: var(--cg-raised);
+  border: 1px solid var(--cg-line);
+  border-radius: .35rem;
+  font-size: .77rem;
+}
+
+.crypto-guide .cg-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .22rem .85rem;
+  margin-top: 1.1rem;
+  font-size: .74rem;
+}
+
+.crypto-guide .cg-links a {
+  color: var(--cg-accent);
+  text-decoration: underline;
+  text-underline-offset: .2em;
+}
+
+@media (max-width: 620px) {
+  .crypto-guide .cg-choices,
+  .crypto-guide .cg-flow {
+    grid-template-columns: 1fr;
+  }
+
+  .crypto-guide .cg-flow > li + li::before {
+    top: -.63rem;
+    left: 1rem;
+    transform: rotate(90deg);
+  }
+}
