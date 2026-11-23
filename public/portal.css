@@ -117,11 +117,16 @@ h1, h2, p { margin: 0; }
   transition: border-color .18s ease, background-color .18s ease;
 }
 
+.planning-card {
+  --accent: #9ce9e0;
+  --accent-border: #476d78;
+  --accent-tint: #233b49;
+}
+
 .crypto-card {
   --accent: #efbd96;
   --accent-border: #87604f;
   --accent-tint: #49332d;
-  grid-column: 1 / -1;
 }
 
 .crypto-card .card-content { background: linear-gradient(110deg, #26221e, transparent 88%); }
@@ -151,6 +156,8 @@ h1, h2, p { margin: 0; }
 
 .crypto-card:hover, .crypto-card:focus-visible { background: #25221d; }
 
+.planning-card:hover, .planning-card:focus-visible { background: #20292c; }
+
 .mvc-card:hover, .mvc-card:focus-visible { background: #25212c; }
 
 .flow-card:hover, .flow-card:focus-visible { background: #1d2628; }
@@ -161,7 +168,7 @@ h1, h2, p { margin: 0; }
   position: relative;
   display: flex;
   align-items: flex-start;
-  min-height: clamp(145px, 16.1vw, 218px);
+  min-height: clamp(145px, 14.5vw, 197px);
   padding: 20px;
   overflow: hidden;
   border-bottom: 1px solid #42534752;
@@ -177,6 +184,16 @@ h1, h2, p { margin: 0; }
 }
 
 .app-card:hover .card-art::before { transform: scale(1.035); }
+
+.planning-art {
+  border-color: #34535e;
+  background: #162734;
+}
+
+.planning-art::before {
+  background-image: linear-gradient(105deg, #10243593, #22435513 64%), url("./assets/dev-blueprint.webp");
+  background-position: 67% center;
+}
 
 .crypto-art {
   border-color: #715246;
@@ -265,7 +282,7 @@ h1, h2, p { margin: 0; }
 .card-content h2 {
   margin-top: 5px;
   color: var(--ink);
-  font: 690 clamp(27px, 3.5vw, 42px)/1.15 var(--latin);
+  font: 690 clamp(27px, 3.1vw, 37px)/1.15 var(--latin);
   letter-spacing: -.044em;
 }
 
@@ -335,20 +352,8 @@ h1, h2, p { margin: 0; }
 
 .site-footer a:hover { color: var(--ink); }
 
-@media (min-width: 661px) {
-  .crypto-card {
-    display: grid;
-    grid-template: "copy art" 1fr / minmax(0, 0.92fr) minmax(0, 1.08fr);
-  }
-
-  .crypto-card .card-content { grid-area: copy; }
-
-  .crypto-art {
-    grid-area: art;
-    min-height: clamp(226px, 24vw, 278px);
-    border-bottom: 0;
-    border-left: 1px solid #715246;
-  }
+@media (min-width: 1060px) {
+  .app-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 @media (max-width: 950px) {

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1520">
+  <meta name="description" content="Web アプリの進め方、画面・詳細・インフラ設計、フォルダ構成と WBS を、ひとり開発とチーム開発の両方に沿って学ぶ。">
+  <title>Dev Blueprint | Codex Lab</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./guide.css">
+  <link rel="stylesheet" href="./wbs.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="portal-link" href="../" aria-label="Codex Lab ポータル"><span class="back" data-icon="back"></span>Codex Lab</a>
+      <div class="mode-switch" id="mode-switch" role="group" aria-label="開発の進め方">
+        <button type="button" data-mode="solo" aria-pressed="true"><span data-icon="person"></span>ひとり開発</button>
+        <button type="button" data-mode="team" aria-pressed="false"><span data-icon="team"></span>チーム開発</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <h1 id="page-title">Dev Blueprint</h1>
+        <p>Web アプリ開発の進め方。<br class="hero-break">目的を決め、設計から実装とリリースまでつなぐ。</p>
+        <div class="hero-actions">
+          <a class="action primary-action" href="#start">進め方を見る<span data-icon="arrow"></span></a>
+          <a class="action secondary-action" href="#wbs"><span data-icon="tasks"></span>WBS を作る</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="workbench" id="workbench">
+      <aside class="rail">
+        <nav class="section-nav" aria-label="ガイドと作業スペース">
+          <h2>設計ガイド</h2>
+          <a href="#start" data-topic="start"><span data-icon="route"></span>全体の進め方</a>
+          <a href="#screen" data-topic="screen"><span data-icon="screen"></span>画面設計</a>
+          <a href="#detail" data-topic="detail"><span data-icon="code"></span>詳細設計</a>
+          <a href="#infra" data-topic="infra"><span data-icon="server"></span>インフラ設計</a>
+          <a href="#layout" data-topic="layout"><span data-icon="folder"></span>フォルダ構成</a>
+          <a href="#wbs-guide" data-topic="wbs-guide"><span data-icon="list"></span>WBS の書き方</a>
+          <h2>作業スペース</h2>
+          <a href="#wbs" data-topic="wbs"><span data-icon="tasks"></span>WBS を作る</a>
+          <a href="#templates" data-topic="templates"><span data-icon="file"></span>設計テンプレート</a>
+        </nav>
+      </aside>
+
+      <div class="content">
+        <section class="guide-shell" id="guide" aria-label="開発ガイド"></section>
+        <section id="wbs" aria-label="WBS の作業スペース" hidden></section>
+        <section id="template-view" class="template-shell" aria-labelledby="template-title" hidden>
+          <div class="template-intro">
+            <h2 id="template-title">設計テンプレート</h2>
+            <p>記入例で書き方を確認したら、空欄のひな形を保存して自分のプロジェクトで使えます。</p>
+          </div>
+          <div class="template-toolbar">
+            <label class="field" for="template-select"><span>資料の種類</span><select id="template-select"></select></label>
+            <label class="field project-field" for="project-name"><span>プロジェクト名（任意）</span><input id="project-name" maxlength="100" type="text" placeholder="空欄の場合は既定の名前"></label>
+            <div class="sample-toggle" role="group" aria-label="テンプレートの内容">
+              <button type="button" data-template-sample="true" aria-pressed="true">記入例</button>
+              <button type="button" data-template-sample="false" aria-pressed="false">ひな形</button>
+            </div>
+          </div>
+          <div class="template-preview">
+            <div class="preview-heading">
+              <div><h3 id="template-filename"></h3><p id="template-description"></p></div>
+              <button type="button" class="action secondary-action" id="copy-template"><span data-icon="copy"></span>コピー</button>
+            </div>
+            <pre id="template-preview" tabindex="0" aria-label="Markdown のプレビュー"></pre>
+          </div>
+          <div class="template-actions">
+            <button type="button" class="action primary-action" id="download-template"><span data-icon="download"></span>Markdown を保存</button>
+            <button type="button" class="action secondary-action" id="download-pack"><span data-icon="download"></span>資料をまとめて保存</button>
+            <p id="template-status" role="status"></p>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <footer class="footer"><a href="../">Codex Lab</a><p>WBS の下書きはこのブラウザーに保存されます。共有には出力したファイルを使えます。</p></footer>
+  </main>
+</body>
+</html>

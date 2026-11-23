@@ -1,7 +1,8 @@
 # Codex Lab
 
-ポータルから、5つのブラウザーアプリを開けます。
+ポータルから、6つのブラウザーアプリを開けます。
 
+- **Dev Blueprint** (`/planning/`) は、Web アプリの設計と開発の進め方を学び、WBS と設計資料のひな形を出力できる作業スペースです。
 - **Crypto Lab** (`/crypto/`) は、暗号化・パスワードハッシュ・ZIP・署名を用途別に学べるページです。
 - **MVC Flow** (`/mvc/`) は、ASP.NET Core MVC のミドルウェア、ルーティング、フィルター、アクションの処理順を可視化します。
 - **Flow Atlas** (`/network/`) は、DNS から HTTP 応答までの通信経路と順序を可視化します。
@@ -24,6 +25,14 @@ docker compose up --build
 2. **Actions → Deploy Codex Lab to GitHub Pages → Run workflow** から、`main` を選んで実行します。以降は `public/` の変更を `main` に push すると自動更新されます。
 
 公開先の URL は **Settings → Pages** で確認できます。このリポジトリの標準 URL は `https://daigo0001.github.io/codex_fullpower/` です。Docker 版と GitHub Pages 版では、お気に入りと観測ノートの保存領域が別になります。
+
+## Dev Blueprint の使い方
+
+1. **ひとり開発** または **チーム開発** を選び、目的と範囲から、画面設計、詳細設計、インフラ設計、フォルダ構成、リリースまでの進め方を確認します。
+2. **WBS を作る** で「備品貸出管理」の例を使うか、新規の計画を作ります。成果物、完了条件、担当、期限、工数、前提タスク、状態を編集し、表計算ソフト向けの CSV または復元用の JSON を保存できます。
+3. **設計テンプレート** で記入例とひな形を切り替え、要件、画面、詳細、インフラ、フォルダ構成の資料を Markdown で保存できます。
+
+WBS の下書きはブラウザー内に保存されます。別の端末やブラウザーで続きを編集する場合は JSON で移します。チームに配る資料には CSV と Markdown を使えます。
 
 ## Crypto Lab の使い方
 
