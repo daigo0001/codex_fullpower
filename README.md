@@ -1,7 +1,8 @@
 # Codex Lab
 
-ポータルから、6つのブラウザーアプリを開けます。
+ポータルから、7つのブラウザーアプリを開けます。
 
+- **Azure Network Atlas** (`/azure/`) は、Azure の VNet と通信経路を、構成図とシナリオで学べます。
 - **Dev Blueprint** (`/planning/`) は、Web アプリの設計と開発の進め方を学び、WBS と設計資料のひな形を出力できる作業スペースです。
 - **Crypto Lab** (`/crypto/`) は、暗号化・パスワードハッシュ・ZIP・署名を用途別に学べるページです。
 - **MVC Flow** (`/mvc/`) は、ASP.NET Core MVC のミドルウェア、ルーティング、フィルター、アクションの処理順を可視化します。
@@ -25,6 +26,14 @@ docker compose up --build
 2. **Actions → Deploy Codex Lab to GitHub Pages → Run workflow** から、`main` を選んで実行します。以降は `public/` の変更を `main` に push すると自動更新されます。
 
 公開先の URL は **Settings → Pages** で確認できます。このリポジトリの標準 URL は `https://daigo0001.github.io/codex_fullpower/` です。Docker 版と GitHub Pages 版では、お気に入りと観測ノートの保存領域が別になります。
+
+## Azure Network Atlas の使い方
+
+1. Application Gateway による受信、NAT Gateway による送信、Private Endpoint への接続、Private DNS のリンクがない接続、ハブ・スポーク間の通信から選びます。
+2. 再生、ステップ送り、またはシーケンス図の行で経路を進めます。各ステップの送信元、宛先、名前解決、ルートや許可の判断を確認できます。
+3. **基礎ガイド** で VNet とサブネット、NSG とルート、各ネットワークサービスの役割を比較できます。特定のステップは共有リンクで開けます。
+
+構成、アドレス、所要時間は説明用の例です。ブラウザー内で動作し、Azure アカウントやリソースの作成は不要です。
 
 ## Dev Blueprint の使い方
 

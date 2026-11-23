@@ -1,0 +1,140 @@
+.azure-guide {
+  --azg-surface: var(--surface, #111d31);
+  --azg-raised: var(--surface-raised, #1a2b43);
+  --azg-line: var(--line, #2b4059);
+  --azg-accent: var(--accent, #75d2ff);
+  color: var(--ink, #ebf5ff);
+  min-width: 0;
+  padding: clamp(12px, 2.1vw, 24px);
+  border: 1px solid var(--azg-line);
+  border-radius: 14px;
+  background: var(--azg-surface);
+}
+.azure-guide h2, .azure-guide h3, .azure-guide h4, .azure-guide p { margin: 0; }
+.azure-guide :where(h2, h3, h4, strong) { line-height: 1.4; }
+.azure-guide h2 { font-size: clamp(18px, 2vw, 24px); }
+.azure-guide h3 { font-size: clamp(16px, 1.7vw, 20px); margin-bottom: 8px; }
+.azure-guide h4 { font-size: 13px; }
+.azure-guide p { color: var(--muted, #a7bed6); font-size: 13px; line-height: 1.7; }
+.azure-guide p + p { margin-top: 8px; }
+.azg-heading p { margin-top: 5px; }
+.azg-nav, .azg-addresses, .azg-links { display: flex; flex-wrap: wrap; gap: 6px; }
+.azg-nav { margin: 15px 0; }
+.azure-guide button {
+  padding: 6px 9px;
+  min-height: 34px;
+  border: 1px solid var(--azg-line);
+  border-radius: 7px;
+  background: var(--azg-raised);
+  color: var(--muted, #b0c2d7);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.azure-guide button:hover { border-color: color-mix(in srgb, var(--azg-accent) 55%, var(--azg-line)); }
+.azure-guide button[aria-pressed="true"] {
+  border-color: color-mix(in srgb, var(--azg-accent) 55%, var(--azg-line));
+  color: var(--azg-accent);
+  background: color-mix(in srgb, var(--azg-accent) 10%, var(--azg-raised));
+}
+.azure-guide :is(button, a, [tabindex]):focus-visible { outline: 2px solid var(--azg-accent); outline-offset: 3px; }
+.azg-panel[hidden] { display: none; }
+.azg-basics {
+  display: grid;
+  grid-template-columns: minmax(235px, .8fr) minmax(0, 1.2fr);
+  gap: 14px;
+  align-items: start;
+}
+.azg-subnet {
+  display: grid;
+  gap: 9px;
+  padding: 10px;
+  min-width: 0;
+  border: 1px solid color-mix(in srgb, var(--azg-accent) 42%, var(--azg-line));
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--azg-accent) 6%, var(--azg-raised));
+}
+.azg-subnet strong { font-size: 12px; }
+.azg-subnet-title { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.azg-subnets { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+.azg-subnets > div {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  padding: 8px;
+  border: 1px solid var(--azg-line);
+  border-radius: 6px;
+  background: var(--azg-surface);
+}
+.azure-guide code {
+  color: var(--azg-accent);
+  font: 600 11px/1.45 var(--mono, ui-monospace, monospace);
+}
+.azg-note, .azg-workshop {
+  margin-top: 13px;
+  padding: 10px 11px;
+  border: 1px solid var(--azg-line);
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--azg-raised) 70%, var(--azg-surface));
+}
+.azg-note > strong { display: block; margin-bottom: 5px; font-size: 13px; }
+.azure-guide .azg-links { margin-top: 7px; gap: 5px 14px; }
+.azg-links a { color: var(--azg-accent); font-size: 11px; text-underline-offset: 2px; text-decoration: underline; }
+.azg-links a:hover { text-decoration-thickness: 2px; }
+.azg-workshop-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px 8px; margin-bottom: 7px; }
+.azg-workshop-heading span { color: var(--muted, #a7bed6); font-size: 10px; }
+.azg-addresses { margin: 0 0 8px; }
+.azg-addresses button { font-family: var(--mono, ui-monospace, monospace); }
+.azg-table-scroller {
+  overflow: auto;
+  border: 1px solid var(--azg-line);
+  border-radius: 8px;
+  background: var(--azg-surface);
+}
+.azure-guide table { width: 100%; min-width: 470px; border-collapse: collapse; text-align: left; font-size: 12px; }
+.azure-guide thead { background: var(--azg-raised); }
+.azure-guide :is(th, td) { padding: 7px 8px; vertical-align: top; line-height: 1.5; }
+.azure-guide td { color: var(--muted, #b0c2d7); }
+.azure-guide th { font-weight: 640; }
+.azure-guide tbody tr { border-top: 1px solid var(--azg-line); }
+.azure-guide td small { display: block; margin-top: 2px; font-size: 10px; }
+.azure-guide tr.azg-selected-route { background: color-mix(in srgb, var(--azg-accent) 13%, var(--azg-surface)); }
+.azg-selected-route [data-route-state] { color: var(--azg-accent); font-weight: 700; }
+.azure-guide .azg-route-answer { margin-top: 8px; color: var(--ink, #ebf5ff); font-size: 12px; }
+.azure-guide .azg-footnote { margin-top: 9px; font-size: 12px; }
+.azg-checklist {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+  counter-reset: azg-check;
+}
+.azg-checklist li {
+  display: grid;
+  grid-template-columns: 23px minmax(0, 1fr);
+  gap: 4px 6px;
+  padding: 8px;
+  border: 1px solid var(--azg-line);
+  border-radius: 7px;
+  background: var(--azg-raised);
+  counter-increment: azg-check;
+}
+.azg-checklist li::before {
+  content: counter(azg-check);
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--azg-accent) 12%, var(--azg-surface));
+  color: var(--azg-accent);
+  font: 620 11px/1 var(--mono, ui-monospace, monospace);
+}
+.azg-checklist strong { align-self: center; font-size: 12px; }
+.azg-checklist p { grid-column: 2; font-size: 12px; }
+@media (max-width: 620px) {
+  .azg-basics, .azg-checklist { grid-template-columns: minmax(0, 1fr); }
+  .azure-guide table { min-width: 415px; }
+}

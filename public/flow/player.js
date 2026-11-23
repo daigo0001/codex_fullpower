@@ -28,7 +28,7 @@ export function initFlowPlayer({ actors, scenarios, getTimeline, renderTopology,
   const actorById = new Map(actors.map((actor) => [actor.id, actor]));
   const scenarioButtons = new Map();
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
-  const state = { scenario: scenarios[0], timeline: [], active: 0, playing: false, timer: null };
+  const state = { scenario: scenarios[0], actors, timeline: [], active: 0, playing: false, timer: null };
 
   for (const scenario of scenarios) {
     const button = document.createElement("button");
@@ -63,7 +63,7 @@ export function initFlowPlayer({ actors, scenarios, getTimeline, renderTopology,
 
   function drawTopology() {
     renderTopology($("topology"), {
-      actors, steps: state.timeline, activeIndex: state.active,
+      actors: state.actors, scenario: state.scenario, steps: state.timeline, activeIndex: state.active,
       motion: state.playing && !reduceMotion.matches,
     });
   }
@@ -110,7 +110,7 @@ export function initFlowPlayer({ actors, scenarios, getTimeline, renderTopology,
     drawTopology();
     renderDetail(currentStep());
     renderSequence($("sequence"), {
-      actors, timeline: state.timeline, activeIndex: state.active, actionLabel,
+      actors: state.actors, timeline: state.timeline, activeIndex: state.active, actionLabel,
       onSelect: (index) => setStep(index),
     });
   }
@@ -134,6 +134,7 @@ export function initFlowPlayer({ actors, scenarios, getTimeline, renderTopology,
   function setScenario(scenario, initial, { writeUrl = true } = {}) {
     cancelPlayback();
     state.scenario = scenario;
+    state.actors = scenario.actorIds ? scenario.actorIds.map((id) => actorById.get(id)) : actors;
     state.timeline = getTimeline(scenario);
     state.active = Math.max(0, Math.min(initial, state.timeline.length - 1));
     for (const [id, button] of scenarioButtons) button.setAttribute("aria-pressed", String(id === scenario.id));
@@ -201,7 +202,13 @@ export function initFlowPlayer({ actors, scenarios, getTimeline, renderTopology,
     if (document.hidden && state.playing) togglePlayback();
   });
   reduceMotion.addEventListener("change", drawTopology);
-  window.addEventListener("hashchange", applyLocation);
+  window.addEventListener("hashchange", () => {
+    if (document.getElementById(location.hash.slice(1))) {
+      if (state.playing) togglePlayback();
+      return;
+    }
+    applyLocation();
+  });
 
   $("share").addEventListener("click", () => {
     if (state.playing) togglePlayback();

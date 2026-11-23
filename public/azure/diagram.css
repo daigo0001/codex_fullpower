@@ -1,0 +1,164 @@
+.azure-topology {
+  --azure-wire: #82d4ff;
+  --azure-current: #213d55;
+  container-type: inline-size;
+  margin: 0;
+  min-width: 0;
+  color: #eaf6ff;
+}
+.azure-topology[data-category="dns"] { --azure-wire: #bba7ff; --azure-current: #333252; }
+.azure-topology[data-category="nsg"],
+.azure-topology[data-category="fw"] { --azure-wire: #ffd2a0; --azure-current: #45372d; }
+.azure-topology[data-category="snat"],
+.azure-topology[data-category="private-link"] { --azure-wire: #91e1c9; --azure-current: #254644; }
+.azure-topology[data-category="error"],
+.azure-topology[data-phase="short-circuit"] { --azure-wire: #ffb6c2; --azure-current: #492c40; }
+
+.azure-topology-stage {
+  position: relative;
+  min-height: 278px;
+  overflow: hidden;
+  border: 1px solid #2b4159;
+  border-radius: 12px;
+  background:
+    radial-gradient(circle, #395375 0.9px, transparent 1px) 0 0 / 17px 17px,
+    radial-gradient(ellipse at 52% 55%, #1b314c, #111d30 78%);
+}
+.azure-zone {
+  position: absolute;
+  inset: var(--desktop-y) auto auto var(--desktop-x);
+  width: var(--desktop-w);
+  height: var(--desktop-h);
+  border: 1px solid #4a6080;
+  border-radius: 10px;
+  background: #15345230;
+}
+.azure-zone[data-kind="tenant"] { border-color: #527d9f; background: #21517a34; }
+.azure-zone[data-kind="hub"] { border-color: #876b86; background: #362c4d64; }
+.azure-zone[data-kind="dns"] { border-color: #68558d; background: #36284d56; }
+.azure-zone-title {
+  position: absolute;
+  top: 7px;
+  left: 8px;
+  right: 6px;
+  overflow-wrap: anywhere;
+  color: #b8cde3;
+  font-size: 10px;
+  font-weight: 650;
+  line-height: 1.26;
+}
+.azure-topology-wires,
+.azure-topology-nodes { position: absolute; inset: 0; width: 100%; height: 100%; }
+.azure-topology-wires { overflow: visible; pointer-events: none; }
+.azure-topology-nodes { list-style: none; margin: 0; padding: 0; }
+.azure-route,
+.azure-route-active { fill: none; stroke-linecap: round; }
+.azure-route { stroke: #7395b5; stroke-width: 1.25; stroke-dasharray: 3 5; opacity: .58; }
+.azure-route--visited { stroke-dasharray: none; }
+.azure-route-active { stroke: var(--azure-wire); stroke-width: 2; filter: drop-shadow(0 0 4px var(--azure-wire)); }
+.azure-arrowhead { fill: var(--azure-wire); }
+.azure-route-pulse { fill: #f4fdff; stroke: var(--azure-wire); stroke-width: 1.8; filter: drop-shadow(0 0 4px var(--azure-wire)); }
+.azure-topology-node {
+  position: absolute;
+  top: var(--desktop-y);
+  left: var(--desktop-x);
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: min(21%, 162px);
+  padding: 8px;
+  min-width: 0;
+  border: 1px solid #45627f;
+  border-radius: 9px;
+  background: #16273b;
+  box-shadow: 0 7px 14px #071323a6;
+}
+.azure-topology-node[data-active] {
+  border-color: var(--azure-wire);
+  background: var(--azure-current);
+}
+.azure-node-icon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex: none;
+  border: 1px solid #4b708d;
+  border-radius: 7px;
+  background: #203b55;
+  color: #bceaff;
+}
+.azure-node-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.azure-topology-node[data-active] .azure-node-icon { color: var(--azure-wire); border-color: var(--azure-wire); }
+.azure-node-label { display: grid; gap: 3px; min-width: 0; }
+.azure-node-name { font-size: 12px; font-weight: 700; line-height: 1.24; overflow-wrap: anywhere; }
+.azure-node-role { color: #bdcfe2; font-size: 9px; line-height: 1.25; overflow-wrap: anywhere; }
+.azure-node-status {
+  position: absolute;
+  top: -9px;
+  right: 4px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  color: #15233c;
+  background: var(--azure-wire);
+  font-size: 8px;
+  font-weight: 750;
+  line-height: 1.45;
+}
+.azure-route-caption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 2px 1px;
+  gap: 7px;
+  min-height: 33px;
+  color: #c4d8eb;
+  font-size: 11px;
+  line-height: 1.45;
+  text-align: center;
+}
+.azure-route-phase {
+  flex: none;
+  padding: 2px 5px;
+  border: 1px solid color-mix(in srgb, var(--azure-wire), transparent 50%);
+  border-radius: 5px;
+  background: var(--azure-current);
+  color: var(--azure-wire);
+  font-size: 9px;
+  font-weight: 680;
+}
+.azure-route-description { min-width: 0; overflow-wrap: anywhere; }
+
+@container (max-width: 535px) {
+  .azure-topology-stage { min-height: 290px; }
+  .azure-zone {
+    inset: var(--mobile-y) auto auto var(--mobile-x);
+    width: var(--mobile-w);
+    height: var(--mobile-h);
+  }
+  .azure-topology-node {
+    top: var(--mobile-y);
+    left: var(--mobile-x);
+    width: 38%;
+  }
+}
+@container (max-width: 360px) {
+  .azure-zone-title { left: 6px; font-size: 9px; }
+  .azure-topology-node { padding: 5px 4px; gap: 4px; }
+  .azure-node-name { font-size: 10.5px; }
+  .azure-node-role { font-size: 8px; }
+  .azure-node-icon { width: 24px; height: 24px; }
+  .azure-node-icon svg { width: 15px; height: 15px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .azure-route-pulse { display: none; }
+}

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#11130f">
-  <meta name="description" content="Codex Lab のアプリを開く。開発計画の Dev Blueprint、暗号技術の Crypto Lab、ASP.NET Core MVC の MVC Flow、ネットワークの Flow Atlas、HTTP ヘッダーの Header Guard、天体観測の YOSORA。">
+  <meta name="description" content="Codex Lab のアプリを開く。Azure の通信経路を学ぶ Azure Network Atlas、開発計画の Dev Blueprint、暗号技術の Crypto Lab、ASP.NET Core MVC の MVC Flow、ネットワークの Flow Atlas、HTTP ヘッダーの Header Guard、天体観測の YOSORA。">
   <title>Codex Lab — アプリ一覧</title>
   <link rel="icon" href="./assets/lab-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./portal.css">
@@ -28,6 +28,28 @@
       </div>
 
       <div class="app-grid">
+        <a class="app-card azure-card" href="./azure/" aria-labelledby="azure-title azure-open">
+          <div class="card-art azure-art">
+            <span class="app-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 15H6a3.5 3.5 0 0 1-.6-6.95 5.5 5.5 0 0 1 10.5-1.3 4.15 4.15 0 0 1 2.55 8.25H17M12 11v7m-4 2h8"/>
+                <circle cx="12" cy="11" r="1.1"/>
+              </svg>
+            </span>
+          </div>
+          <div class="card-content">
+            <p class="category"><i aria-hidden="true"></i> Azure ネットワーク</p>
+            <h2 id="azure-title">Azure Network Atlas</h2>
+            <p class="description">Azure の受信・送信、Private Endpoint、ハブ＆スポークの通信を図とステップで追えます。</p>
+            <div class="card-footer">
+              <span class="app-detail">VNet・サブネット・NSG・ルートを図解</span>
+              <span class="open-label" id="azure-open">アプリを開く
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+
         <a class="app-card planning-card" href="./planning/" aria-labelledby="planning-title planning-open">
           <div class="card-art planning-art">
             <span class="app-icon" aria-hidden="true">
