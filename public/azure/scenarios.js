@@ -77,7 +77,7 @@ export const scenarios = [
         { duration: 15 },
       ),
       step(
-        "gateway-select-backend", "app-gateway", "app-gateway", "http", "L7 ルーティング", "HTTP ルールでバックエンドを選ぶ",
+        "gateway-select-backend", "app-gateway", "app-gateway", "http", "HTTP ルール", "HTTP ルールでバックエンドを選ぶ",
         "Gateway は TLS を終端し、ホスト名やパスなど、設定した規則に従って転送先を選びます。この例では、プローブで正常と判定された Web VM を選びます。",
         { リクエスト: "GET /products", バックエンド: "Web VM（10.10.1.4）", プローブ: "正常" },
       ),

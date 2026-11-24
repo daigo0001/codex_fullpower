@@ -22,7 +22,7 @@ function svg(name) {
   return `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${icons[name]}</svg>`;
 }
 
-export function initFlowPlayer({ actors, scenarios, getTimeline, renderTopology, presentation, actionLabel }) {
+export function initFlowPlayer({ actors, scenarios, getTimeline, renderTopology, presentation, actionLabel, onStep }) {
   for (const element of document.querySelectorAll("[data-icon]")) element.innerHTML = svg(element.dataset.icon);
 
   const actorById = new Map(actors.map((actor) => [actor.id, actor]));
@@ -106,9 +106,11 @@ export function initFlowPlayer({ actors, scenarios, getTimeline, renderTopology,
   }
 
   function renderStep() {
+    const step = currentStep();
     renderControls();
     drawTopology();
-    renderDetail(currentStep());
+    renderDetail(step);
+    onStep?.(step);
     renderSequence($("sequence"), {
       actors: state.actors, timeline: state.timeline, activeIndex: state.active, actionLabel,
       onSelect: (index) => setStep(index),

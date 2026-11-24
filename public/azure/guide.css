@@ -134,7 +134,68 @@
 }
 .azg-checklist strong { align-self: center; font-size: 12px; }
 .azg-checklist p { grid-column: 2; font-size: 12px; }
+#osi-guide { scroll-margin-top: 12px; }
+.azg-osi {
+  display: grid;
+  grid-template-columns: minmax(180px, .8fr) minmax(0, 1.6fr);
+  gap: 10px;
+  align-items: stretch;
+  margin-top: 12px;
+}
+.azg-osi-stack { display: grid; gap: 4px; }
+.azure-guide .azg-osi-stack button {
+  display: grid;
+  grid-template-columns: 27px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+}
+.azg-osi-number {
+  border-radius: 4px;
+  padding: 3px 4px;
+  background: var(--azg-surface);
+  color: var(--azg-accent);
+  font: 650 11px/1.2 var(--mono, ui-monospace, monospace);
+  text-align: center;
+}
+.azg-osi-detail {
+  display: grid;
+  align-content: center;
+  gap: 10px;
+  padding: clamp(10px, 2vw, 20px);
+  min-width: 0;
+  border: 1px solid var(--azg-line);
+  border-radius: 9px;
+  background: var(--azg-raised);
+}
+.azure-guide .azg-osi-detail h4 { font-size: 15px; margin-bottom: 6px; color: var(--azg-accent); }
+.azure-guide .azg-osi-example {
+  border-left: 2px solid var(--azg-accent);
+  padding-left: 8px;
+  color: var(--ink, #ebf5ff);
+}
+.azg-osi-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.azg-osi-links a {
+  display: block;
+  padding: 4px 7px;
+  color: var(--azg-accent);
+  font-size: 11px;
+  text-decoration: none;
+  border: 1px solid var(--azg-line);
+  border-radius: 6px;
+  background: var(--azg-surface);
+}
+.azg-osi-links a:hover { text-decoration: underline; }
 @media (max-width: 620px) {
-  .azg-basics, .azg-checklist { grid-template-columns: minmax(0, 1fr); }
+  .azg-basics, .azg-checklist, .azg-osi { grid-template-columns: minmax(0, 1fr); }
+  .azg-osi-stack { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .azure-guide table { min-width: 415px; }
 }

@@ -84,3 +84,14 @@
   .azure-atlas .topology-panel .panel-heading { display: grid; justify-content: stretch; }
   .azure-atlas .scenario-result { display: flex; align-items: center; justify-content: flex-end; max-width: none; }
 }
+
+.osi-focus { display: grid; gap: 7px; border-top: 1px solid var(--line-soft); padding-top: 11px; }
+.osi-focus-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 5px; }
+.osi-focus-heading h4 { color: #d3e7f9; font-size: 11px; }
+.osi-focus-heading a { color: var(--blue-strong); font-size: 10px; text-decoration: underline; text-underline-offset: 3px; }
+.osi-focus-list { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 3px; list-style: none; margin: 0; padding: 0; }
+.osi-focus-list li { min-width: 0; display: grid; gap: 3px; align-content: center; min-height: 41px; padding: 4px 2px; border: 1px solid #354c67; border-radius: 6px; background: #16283f; color: #acc1d9; text-align: center; }
+.osi-focus-list strong { font: 670 11px/1.1 var(--mono); }
+.osi-focus-list span { font-size: 8px; line-height: 1.2; overflow-wrap: anywhere; }
+.osi-focus-list li[data-focused] { color: #e3f8ff; background: #235478; border-color: #8acbff; box-shadow: inset 0 -2px #8acbff; }
+#osi-reason { color: #bad2e7; font-size: 11px; line-height: 1.65; }

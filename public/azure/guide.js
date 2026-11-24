@@ -1,5 +1,9 @@
+import { osiLayers } from "./osi.js";
+import { scenarios } from "./scenarios.js";
+
 const tabs = [
   { id: "basics", label: "VNet と NSG" },
+  { id: "osi", label: "OSI 7層" },
   { id: "routes", label: "ルートを試す" },
   { id: "services", label: "サービスを比較" },
   { id: "diagnose", label: "通信を切り分ける" },
@@ -9,6 +13,7 @@ const docs = {
   vnet: ["VNet の概要", "https://learn.microsoft.com/ja-jp/azure/virtual-network/virtual-networks-overview"],
   reserved: ["予約済み IP", "https://learn.microsoft.com/ja-jp/azure/virtual-network/virtual-networks-faq#are-there-any-restrictions-on-using-ip-addresses-within-these-subnets"],
   nsg: ["NSG のルール", "https://learn.microsoft.com/ja-jp/azure/virtual-network/network-security-groups-overview"],
+  osi: ["ITU-T X.200 · OSI 参照モデル", "https://www.itu.int/rec/T-REC-X.200-199407-I/en"],
   filtering: ["NSG の適用順序", "https://learn.microsoft.com/ja-jp/azure/virtual-network/network-security-group-how-it-works"],
   routing: ["Azure のルート選択", "https://learn.microsoft.com/ja-jp/azure/virtual-network/virtual-networks-udr-overview#how-azure-selects-a-route"],
   load: ["負荷分散の選び方", "https://learn.microsoft.com/ja-jp/azure/architecture/guide/technology-choices/load-balancing-overview"],
@@ -53,6 +58,36 @@ const basics = `
     <p>VM にサブネットと NIC の両方の NSG がある場合は、両方で許可される必要があります。受信はサブネットから NIC、送信は NIC からサブネットの順です。</p>
     ${references("nsg", "filtering")}
   </div>
+`;
+
+const osiExamples = {
+  7: [["ingress", "gateway-select-backend"], ["private", "blob-dns-query"]],
+  4: [["ingress", "backend-nsg"], ["egress", "nat-outbound"]],
+  3: [["egress", "internet-route"], ["hub", "spoke-a-to-firewall"]],
+};
+
+const osi = `
+  <h3 id="azg-osi-heading" tabindex="-1">OSI 7層で、通信のどこを見ているか整理する</h3>
+  <p>OSI 参照モデルは、通信の役割を7つの層に分けた考え方です。たとえば同じ HTTPS 通信でも、Application Gateway が URL のパスを見て振り分けるのは L7、NSG が IP と TCP 443 を照合するのは L3・L4 です。</p>
+  <div class="azg-osi">
+    <div class="azg-osi-stack" role="group" aria-label="OSI 参照モデルの層">
+      ${osiLayers.map(({ number, name }) => `
+        <button type="button" data-osi-guide-layer="${number}" aria-controls="azg-osi-detail" aria-pressed="false">
+          <span class="azg-osi-number">L${number}</span><span>${name}</span>
+        </button>
+      `).join("")}
+    </div>
+    <div class="azg-osi-detail" id="azg-osi-detail">
+      <div aria-live="polite">
+        <h4 data-osi-title></h4>
+        <p data-osi-description></p>
+        <p class="azg-osi-example" data-osi-example></p>
+      </div>
+      <ul class="azg-osi-links" data-osi-links></ul>
+    </div>
+  </div>
+  <p class="azg-footnote">ステップで強調しているのは、その場面で着目する層です。DNS の問い合わせは L7 の処理ですが、そのデータは下位層を使って運ばれます。実際のプロトコルが参照モデルの7層すべてにきれいに分かれるわけではありません。TLS のように層を一つに決めにくいものもあります。</p>
+  ${references("osi", "load", "nsg")}
 `;
 
 const routes = [
@@ -154,8 +189,52 @@ function mountRoutingWorkshop(panel) {
   select(0);
 }
 
+function mountOsiGuide(panel) {
+  const buttons = [...panel.querySelectorAll("[data-osi-guide-layer]")];
+  const title = panel.querySelector("[data-osi-title]");
+  const description = panel.querySelector("[data-osi-description]");
+  const example = panel.querySelector("[data-osi-example]");
+  const links = panel.querySelector("[data-osi-links]");
+
+  function select(layer) {
+    for (const button of buttons) {
+      button.setAttribute("aria-pressed", String(Number(button.dataset.osiGuideLayer) === layer.number));
+    }
+    title.textContent = `L${layer.number} · ${layer.name}`;
+    description.textContent = layer.description;
+    example.textContent = layer.example;
+    const entries = (osiExamples[layer.number] ?? []).flatMap(([scenarioId, stepId]) => {
+      const scenario = scenarios.find(({ id }) => id === scenarioId);
+      const index = scenario?.steps.findIndex(({ id }) => id === stepId) ?? -1;
+      if (index === -1) return [];
+      const link = panel.ownerDocument.createElement("a");
+      link.href = `#${scenarioId}/${index + 1}`;
+      link.textContent = `${scenario.steps[index].title} ↑`;
+      const item = panel.ownerDocument.createElement("li");
+      item.append(link);
+      return [item];
+    });
+    links.replaceChildren(...entries);
+    links.hidden = entries.length === 0;
+  }
+
+  for (const [index, button] of buttons.entries()) {
+    button.addEventListener("click", () => select(osiLayers[index]));
+  }
+  links.addEventListener("click", (event) => {
+    if (!event.target.closest("a") || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const heading = panel.ownerDocument.getElementById("detail-heading");
+    if (heading) {
+      heading.tabIndex = -1;
+      heading.focus({ preventScroll: true });
+      heading.closest(".detail-panel")?.scrollIntoView({ block: "start" });
+    }
+  });
+  select(osiLayers[0]);
+}
+
 export function mountAzureGuide(container) {
-  const panels = { basics, routes: routing, services, diagnose };
+  const panels = { basics, osi, routes: routing, services, diagnose };
   container.classList.add("azure-guide");
   container.innerHTML = `
     <div class="azg-heading">
@@ -165,7 +244,7 @@ export function mountAzureGuide(container) {
     <div class="azg-nav" role="group" aria-label="Azure ネットワークのテーマ">
       ${tabs.map(({ id, label }) => `<button type="button" data-guide-topic="${id}" aria-pressed="false">${label}</button>`).join("")}
     </div>
-    ${tabs.map(({ id }) => `<section class="azg-panel" data-guide-panel="${id}" hidden>${panels[id]}</section>`).join("")}
+    ${tabs.map(({ id }) => `<section class="azg-panel" data-guide-panel="${id}"${id === "osi" ? ' id="osi-guide"' : ""} hidden>${panels[id]}</section>`).join("")}
   `;
   const buttons = [...container.querySelectorAll("[data-guide-topic]")];
   const sections = [...container.querySelectorAll("[data-guide-panel]")];
@@ -178,8 +257,28 @@ export function mountAzureGuide(container) {
   }
 
   for (const button of buttons) {
-    button.addEventListener("click", () => select(button.dataset.guideTopic));
+    button.addEventListener("click", () => {
+      const topic = button.dataset.guideTopic;
+      if (topic !== "osi" && location.hash === "#osi-guide") {
+        history.replaceState(history.state, "", "#azure-guide");
+      }
+      select(topic);
+    });
   }
   mountRoutingWorkshop(sections.find((panel) => panel.dataset.guidePanel === "routes"));
+  const osiPanel = sections.find((panel) => panel.dataset.guidePanel === "osi");
+  mountOsiGuide(osiPanel);
+
+  function openOsiFromHash() {
+    if (location.hash !== "#osi-guide") return;
+    select("osi");
+    requestAnimationFrame(() => {
+      osiPanel.querySelector("#azg-osi-heading").focus({ preventScroll: true });
+      osiPanel.scrollIntoView({ block: "start" });
+    });
+  }
+
   select(tabs[0].id);
+  openOsiFromHash();
+  window.addEventListener("hashchange", openOsiFromHash);
 }

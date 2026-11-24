@@ -59,12 +59,14 @@ export function renderSequence(container, { actors, timeline, activeIndex, onSel
       const from = actors.find(({ id }) => id === step.from)?.name ?? step.from;
       const to = actors.find(({ id }) => id === step.to)?.name ?? step.to;
       const direction = step.from === step.to ? `${from}の内部処理` : `${from} から ${to}`;
-      row.setAttribute("aria-label", `${index + 1}。 ${step.title}。 ${direction}。 ${step.start} から ${step.end} ミリ秒。`);
+      const annotation = step.annotation ? ` ${step.annotation}。` : "";
+      row.setAttribute("aria-label", `${index + 1}。 ${step.title}。 ${direction}。${annotation} ${step.start} から ${step.end} ミリ秒。`);
       const time = html(doc, "span", "flow-seq-time", `${step.start}–${step.end}`);
       time.append(html(doc, "small", "", "ms"));
       const content = html(doc, "span", "flow-seq-content");
       content.append(html(doc, "strong", "flow-seq-title", step.title));
-      content.append(html(doc, "span", "flow-protocol", step.protocol));
+      const badge = step.annotation ? `${step.protocol} · ${step.annotation}` : step.protocol;
+      content.append(html(doc, "span", "flow-protocol", badge));
       row.append(time, drawSequenceLink(doc, actors, step), content);
       row.addEventListener("click", () => sequenceState.get(container)?.onSelect?.(index));
       item.append(row);
