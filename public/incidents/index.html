@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111825">
+  <meta name="description" content="ログ・メトリクス・変更履歴を使い、Web アプリの障害調査から復旧確認までを練習する。">
+  <title>Incident Lab | Codex Lab</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="portal-link" href="../" aria-label="Codex Lab ポータル"><span class="back" data-icon="back"></span>Codex Lab</a>
+      <span class="lab-tag"><span></span>模擬演習</span>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero" aria-labelledby="title">
+      <div class="hero-copy">
+        <h1 id="title">Incident Lab</h1>
+        <p>ログを読み、仮説を立て、復旧を確かめる。<br>Web アプリの障害対応をシナリオで練習する。</p>
+      </div>
+      <a class="button secondary" href="#playbook"><span data-icon="book"></span>対応の流れ</a>
+    </section>
+
+    <section class="scenario-picker" aria-labelledby="case-picker-title">
+      <h2 id="case-picker-title">シナリオを選ぶ</h2>
+      <div id="cases" class="scenario-options" role="group" aria-labelledby="case-picker-title"></div>
+    </section>
+
+    <section id="case-overview" class="case-overview" aria-labelledby="case-title">
+      <div class="case-main"><span class="signal-tag" id="case-category"></span><h2 id="case-title"></h2><p id="case-context"></p></div>
+      <dl class="case-facts">
+        <div><dt>対象サービス</dt><dd id="case-service"></dd></div>
+        <div><dt>検知時刻</dt><dd id="case-started"></dd></div>
+        <div><dt>症状</dt><dd id="case-symptom"></dd></div>
+        <div><dt>影響範囲</dt><dd id="case-impact"></dd></div>
+      </dl>
+    </section>
+
+    <ol class="run-progress" aria-label="演習の進行状況">
+      <li data-phase="investigate"><span class="phase-number"></span><span>調査と原因</span></li>
+      <li data-phase="respond"><span class="phase-number"></span><span>対応を選ぶ</span></li>
+      <li data-phase="verify"><span class="phase-number"></span><span>復旧確認</span></li>
+      <li data-phase="complete"><span class="phase-number"></span><span>振り返り</span></li>
+    </ol>
+
+    <div class="workbench">
+      <section class="panel evidence-panel" aria-labelledby="evidence-heading">
+        <div class="panel-heading"><div><h2 id="evidence-heading">調査する</h2><p>証拠を選び、症状と変更のつながりを探す。</p></div><span class="review-count" id="evidence-count"></span></div>
+        <div class="evidence-tabs" id="evidence-tabs" role="group" aria-label="証拠の種類"></div>
+        <section id="evidence-content" class="evidence-content" aria-labelledby="evidence-title">
+          <div class="evidence-meta"><span id="evidence-kind" class="signal-tag"></span><h3 id="evidence-title"></h3><p id="evidence-summary"></p></div>
+          <div id="evidence-chart" class="evidence-chart" hidden></div>
+          <pre id="evidence-body" tabindex="0" aria-label="模擬データ"></pre>
+        </section>
+        <details class="notes">
+          <summary>調査メモ</summary>
+          <label for="notes">事実、仮説、次に確認したいこと</label>
+          <textarea id="notes" rows="3" maxlength="1500" placeholder="例：エラーが増えたのはデプロイの直後。どこまで通信できているか確認する。"></textarea>
+          <p>メモは振り返りの Markdown に含められます。</p>
+        </details>
+      </section>
+
+      <section class="panel decision-panel" aria-labelledby="decision-heading">
+        <div class="panel-heading"><div><h2 id="decision-heading">判断する</h2><p id="decision-intro"></p></div></div>
+        <form id="decision-form">
+          <fieldset id="decision-fieldset">
+            <legend id="decision-title"></legend>
+            <div id="decision-options"></div>
+          </fieldset>
+          <p id="decision-hint"></p>
+          <button type="submit" id="decision-submit" class="button primary"></button>
+        </form>
+        <p class="feedback" id="feedback" role="status"></p>
+        <div id="resolution" class="resolution" hidden>
+          <dl><div><dt>原因</dt><dd id="resolution-cause"></dd></div><div><dt>対応</dt><dd id="resolution-mitigation"></dd></div><div><dt>復旧確認</dt><dd id="resolution-verify"></dd></div></dl>
+          <h3>次に残すこと</h3>
+          <ul id="resolution-followup"></ul>
+          <div class="resolution-actions">
+            <button id="report-download" class="button primary" type="button"><span data-icon="download"></span>振り返りを保存</button>
+            <a id="resolution-link" class="button secondary" href="../">関連教材を見る</a>
+          </div>
+        </div>
+        <div class="panel-footer"><button id="reset" class="text-button" type="button"><span data-icon="restart"></span>演習をやり直す</button></div>
+      </section>
+    </div>
+
+    <section id="playbook" class="panel playbook" aria-labelledby="playbook-title">
+      <div class="panel-heading"><div><h2 id="playbook-title">実際の障害対応で残すこと</h2><p>途中から参加する人にも、今わかっていることが伝わるようにする。</p></div></div>
+      <ol>
+        <li><h3>影響を言葉にする</h3><p>誰が、どの操作で、いつから困っているかを共有します。担当と連絡窓口を決め、わかった事実から記録します。</p></li>
+        <li><h3>証拠をつなげる</h3><p>症状、ログ、メトリクス、変更履歴を時刻で見比べます。仮説を一つ立て、当たっていればどう観測されるかを確認します。</p></li>
+        <li><h3>影響を抑え、復旧を測る</h3><p>影響と戻し方を確認してから対応します。ユーザーの操作とエラー率の両方が戻ったか、一定時間観察します。</p></li>
+        <li><h3>再発防止の作業にする</h3><p>時系列、原因、対応と判断の根拠をまとめます。改善には担当、期限、完了条件を添えます。</p></li>
+      </ol>
+    </section>
+    <footer class="footer"><a href="../">Codex Lab</a><p>ログ・数値・構成は模擬データです。演習の記録は現在のタブ内で扱います。</p></footer>
+  </main>
+
+  <dialog id="reset-dialog" class="reset-dialog" aria-labelledby="reset-title">
+    <form method="dialog">
+      <h2 id="reset-title">この演習をやり直しますか？</h2>
+      <p>現在のシナリオで確認した証拠、回答、調査メモをリセットします。</p>
+      <div><button class="button secondary" value="cancel" autofocus>キャンセル</button><button class="button primary" value="reset">やり直す</button></div>
+    </form>
+  </dialog>
+</body>
+</html>

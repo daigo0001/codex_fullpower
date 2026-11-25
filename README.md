@@ -1,7 +1,8 @@
 # Codex Lab
 
-ポータルから、7つのブラウザーアプリを開けます。
+ポータルから、8つのブラウザーアプリを開けます。
 
+- **Incident Lab** (`/incidents/`) は、Web アプリの障害を題材に、調査、対応、復旧確認を練習できる教材です。
 - **Azure Network Atlas** (`/azure/`) は、Azure の VNet と通信経路を、構成図とシナリオで学べます。
 - **Dev Blueprint** (`/planning/`) は、Web アプリの設計と開発の進め方を学び、WBS と設計資料のひな形を出力できる作業スペースです。
 - **Crypto Lab** (`/crypto/`) は、暗号化・パスワードハッシュ・ZIP・署名を用途別に学べるページです。
@@ -26,6 +27,14 @@ docker compose up --build
 2. **Actions → Deploy Codex Lab to GitHub Pages → Run workflow** から、`main` を選んで実行します。以降は `public/` の変更を `main` に push すると自動更新されます。
 
 公開先の URL は **Settings → Pages** で確認できます。このリポジトリの標準 URL は `https://daigo0001.github.io/codex_fullpower/` です。Docker 版と GitHub Pages 版では、お気に入りと観測ノートの保存領域が別になります。
+
+## Incident Lab の使い方
+
+1. デプロイ直後の 502、Blob の 403、貸出処理の 504、ログインループの中からシナリオを選びます。
+2. ログ、メトリクス、構成、変更履歴を見比べ、仮説と対応を選びます。フィードバックを読んで、別の証拠を確認してからやり直せます。
+3. 復旧を裏付ける確認項目を選びます。演習の最後に、見た証拠、原因、対応、再発防止案と自分のメモを Markdown に保存できます。
+
+ケースはすべて架空で、演習の進行やメモは現在のタブ内で扱います。リセットまたは再読み込みで初期状態に戻ります。
 
 ## Azure Network Atlas の使い方
 
