@@ -1,0 +1,94 @@
+:root {
+  color-scheme: dark;
+  --page: #0e1922;
+  --surface: #162631;
+  --surface-raised: #203441;
+  --ink: #edf9f8;
+  --muted: #b5ccd1;
+  --quiet: #91adb4;
+  --accent: #94e5d8;
+  --line: #345258;
+  --sans: "Noto Sans JP", "Noto Sans CJK JP", "Hiragino Sans", "Yu Gothic UI", sans-serif;
+  --display: "Inter", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { min-width: 320px; }
+body { min-height: 100vh; margin: 0; color: var(--ink); background: radial-gradient(ellipse at 82% 14%, #213a44, transparent 51rem), var(--page); font: 14px/1.65 var(--sans); }
+h1, h2, h3, p, dl, pre { margin: 0; }
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: default; }
+a { color: inherit; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.icon { display: block; width: 1em; height: 1em; }
+.shell { width: min(1252px, calc(100% - 72px)); margin-inline: auto; }
+.site-header { background: #14232c; border-bottom: 1px solid #33515a; }
+.header-inner { min-height: 61px; display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.portal-link { display: inline-flex; align-items: center; gap: 9px; font: 680 15px/1 var(--display); text-decoration: none; }
+.portal-link:hover, .footer a:hover { color: var(--accent); }
+.back { width: 32px; height: 32px; display: grid; place-items: center; font-size: 15px; border: 1px solid #48696c; border-radius: 8px; color: var(--accent); background: #254149; }
+.database-tag { display: flex; align-items: center; gap: 6px; color: #c0e9e3; font-size: 11px; }
+.database-tag [data-icon] { color: var(--accent); font-size: 15px; }
+
+.hero { position: relative; isolation: isolate; overflow: hidden; min-height: 211px; margin: 17px 0 15px; padding: 22px 27px; display: grid; align-items: center; border: 1px solid #45636a; border-radius: 14px; background: #1b313b; }
+.hero::before { position: absolute; z-index: -1; inset: 0; content: ""; background: linear-gradient(90deg,#1b3039 3%,#1b3039 23%,#182f36b9 52%,#122c3740 100%), url("../assets/rdb-design.webp") right 50%/min(86%,1060px) auto no-repeat; }
+.hero h1 { color: #f3fffd; font: 770 clamp(45px, 6.1vw, 82px)/1.04 var(--display); letter-spacing: -.072em; }
+.hero p { color: #d0e5e6; font-size: 13px; margin-top: 8px; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 13px; }
+.action { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 6px 9px; min-height: 34px; border: 1px solid #5d8182; border-radius: 8px; color: #e2fbf7; background: #243f47; font-size: 11px; font-weight: 680; text-decoration: none; white-space: nowrap; }
+.action [data-icon] { font-size: 14px; }
+.action.primary { border-color: #b3f1e5; color: #173538; background: #98e7db; }
+.action.primary:hover { background: #bbf2e8; }
+.action.secondary:hover { border-color: #9cd9d3; color: white; }
+
+.workbench { display: grid; grid-template-columns: 200px minmax(0,1fr); align-items: start; gap: 13px; scroll-margin-top: 12px; }
+.rail { position: sticky; top: 12px; min-width: 0; display: grid; gap: 7px; }
+.section-nav { display: grid; gap: 3px; background: var(--surface); border: 1px solid var(--line); border-radius: 11px; padding: 7px; }
+.section-nav h2 { margin: 4px 7px 1px; color: var(--quiet); font-size: 10px; font-weight: 650; }
+.section-nav h2:not(:first-child) { margin-top: 6px; padding-top: 7px; border-top: 1px solid #36535b; }
+.section-nav a { display: flex; align-items: center; gap: 8px; min-height: 35px; padding: 5px 7px; color: #dae9ed; font-size: 12px; text-decoration: none; border: 1px solid transparent; border-radius: 7px; }
+.section-nav a [data-icon] { flex: none; color: #a9e8e0; font-size: 14px; }
+.section-nav a:hover { background: #274049; }
+.section-nav a[aria-current="page"] { color: #c8fff5; background: #295054; border-color: #4c7777; font-weight: 690; }
+.related { display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: center; gap: 6px; padding: 8px; border: 1px solid var(--line); border-radius: 8px; background: #162a35; color: #c6e3e4; text-decoration: none; font-size: 10px; }
+.related > span:nth-child(2) > span { display: block; color: var(--muted); font-size: 9px; }
+.related [data-icon] { color: var(--accent); font-size: 13px; }
+.related:hover { border-color: #659390; }
+.content { min-width: 0; }
+.guide-shell, .lab-shell { min-width: 0; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); padding: clamp(12px, 2vw, 24px); }
+.workbench[data-wide="true"] { grid-template-columns: minmax(0,1fr); gap: 7px; }
+.workbench[data-wide="true"] .rail { position: static; }
+.workbench[data-wide="true"] .section-nav { display: flex; flex-wrap: wrap; }
+.workbench[data-wide="true"] :is(.section-nav h2,.related) { display: none; }
+
+.footer { display: flex; justify-content: space-between; gap: 12px; padding: 17px 0 22px; color: var(--quiet); font-size: 10px; }
+.footer a { flex: none; font: 650 11px/1.5 var(--display); text-decoration: none; }
+@media (max-width: 950px) {
+  .shell { width: calc(100% - 42px); }
+  .workbench { grid-template-columns: 164px minmax(0,1fr); gap: 9px; }
+  .hero { min-height: 187px; }
+}
+@media (max-width: 720px) {
+  .workbench { grid-template-columns: minmax(0,1fr); gap: 7px; }
+  .rail { position: static; }
+  .section-nav { display: flex; flex-wrap: wrap; }
+  .section-nav h2, .related { display: none; }
+  .section-nav a { min-height: 31px; padding: 4px 6px; font-size: 11px; }
+}
+@media (max-width: 540px) {
+  .shell { width: calc(100% - 24px); }
+  .header-inner { min-height: 53px; }
+  .database-tag { font-size: 9px; }
+  .hero { min-height: 151px; padding: 12px; margin: 10px 0; }
+  .hero::before { background: linear-gradient(90deg,#1b3039 2%,#1b3039d9 37%,#172e38a8 94%), url("../assets/rdb-design.webp") 73% 52%/auto 158% no-repeat; }
+  .hero h1 { font-size: clamp(34px, 10.6vw, 51px); }
+  .hero p { font-size: 11px; }
+  .hero-actions { margin-top: 8px; }
+  .action { min-height: 29px; padding: 4px 6px; font-size: 10px; }
+  .footer { padding: 11px 0 16px; font-size: 9px; }
+}

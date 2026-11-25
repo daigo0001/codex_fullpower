@@ -1,7 +1,8 @@
 # Codex Lab
 
-ポータルから、8つのブラウザーアプリを開けます。
+ポータルから、9つのブラウザーアプリを開けます。
 
+- **RDB Design Lab** (`/database/`) は、備品貸出を題材に、テーブル設計、制約、インデックス、同時更新を学べる教材です。
 - **Incident Lab** (`/incidents/`) は、Web アプリの障害を題材に、調査、対応、復旧確認を練習できる教材です。
 - **Azure Network Atlas** (`/azure/`) は、Azure の VNet と通信経路を、構成図とシナリオで学べます。
 - **Dev Blueprint** (`/planning/`) は、Web アプリの設計と開発の進め方を学び、WBS と設計資料のひな形を出力できる作業スペースです。
@@ -27,6 +28,17 @@ docker compose up --build
 2. **Actions → Deploy Codex Lab to GitHub Pages → Run workflow** から、`main` を選んで実行します。以降は `public/` の変更を `main` に push すると自動更新されます。
 
 公開先の URL は **Settings → Pages** で確認できます。このリポジトリの標準 URL は `https://daigo0001.github.io/codex_fullpower/` です。Docker 版と GitHub Pages 版では、お気に入りと観測ノートの保存領域が別になります。
+
+## RDB Design Lab の使い方
+
+1. **設計の考え方** と **テーブルと制約** で、備品貸出の業務ルール、主な検索、テーブルの関係を結びつけます。
+2. **インデックスを試す** で、用途に合わせてクエリと候補のインデックスを選択します。PostgreSQL で架空の貸出データを使って取得した実行計画を比較できます。
+3. **同時更新を試す** で、2人の貸出操作を一手ずつ追い、部分ユニークインデックスが重複をどう防ぐか確認します。
+4. **AI とスキーマ変更** で、既存データとマイグレーションの確認、権限、AI の提案と確定記録を分ける設計を学べます。
+
+ブラウザーだけで利用できます。実行計画はサンプルの計測結果で、実際の選択はデータ分布や PostgreSQL の設定によって変わります。
+
+計測を再現する場合は、検証用の PostgreSQL 17 データベースに `test/fixtures/database-index-demo.sql` を読み込みます。同じセッションで `jit = off`、`max_parallel_workers_per_gather = 0` を設定し、画面の候補インデックスを一つずつ作成して、選んだ SQL に `EXPLAIN (ANALYZE, BUFFERS, TIMING OFF, SUMMARY OFF)` を付けて実行します。
 
 ## Incident Lab の使い方
 

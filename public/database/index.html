@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0e1922">
+  <meta name="description" content="RDB のテーブル設計、制約、インデックス、同時更新、AI 時代のスキーマ変更を備品貸出管理の例から学ぶ。">
+  <title>RDB Design Lab | Codex Lab</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./guide.css">
+  <link rel="stylesheet" href="./index-workbench.css">
+  <link rel="stylesheet" href="./transactions.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="portal-link" href="../" aria-label="Codex Lab ポータル"><span class="back" data-icon="back"></span>Codex Lab</a>
+      <span class="database-tag"><span data-icon="database"></span>PostgreSQL の設計例</span>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <h1 id="page-title">RDB Design Lab</h1>
+        <p>業務ルールとクエリから、テーブル・制約・インデックスを組み立てる。</p>
+        <div class="hero-actions">
+          <a class="action primary" href="#indexes"><span data-icon="activity"></span>インデックスを試す</a>
+          <a class="action secondary" href="#design">設計の考え方を読む<span data-icon="arrow"></span></a>
+        </div>
+      </div>
+    </section>
+
+    <div id="workbench" class="workbench">
+      <aside class="rail">
+        <nav class="section-nav" aria-label="設計のテーマと演習">
+          <h2>設計ガイド</h2>
+          <a href="#design" data-topic="design"><span data-icon="diagram"></span>設計の考え方</a>
+          <a href="#constraints" data-topic="constraints"><span data-icon="check"></span>テーブルと制約</a>
+          <a href="#ai" data-topic="ai"><span data-icon="layers"></span>AI とスキーマ変更</a>
+          <h2>演習</h2>
+          <a href="#indexes" data-topic="indexes"><span data-icon="activity"></span>インデックスを試す</a>
+          <a href="#concurrency" data-topic="concurrency"><span data-icon="arrows"></span>同時更新を試す</a>
+        </nav>
+        <a href="../planning/#detail" class="related"><span data-icon="book"></span><span>備品貸出の詳細設計<span>Dev Blueprint の記入例</span></span><span data-icon="arrow"></span></a>
+      </aside>
+
+      <div class="content">
+        <section id="rdb-guide" class="guide-shell" aria-label="RDB 設計ガイド"></section>
+        <section id="index-lab" class="lab-shell" aria-label="インデックスの演習" hidden></section>
+        <section id="transaction-lab" class="lab-shell" aria-label="同時更新の演習" hidden></section>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <a href="../">Codex Lab</a>
+      <p>設計と実行計画はサンプルです。自分のアプリではデータ量とクエリに合わせて検証します。</p>
+    </footer>
+  </main>
+</body>
+</html>

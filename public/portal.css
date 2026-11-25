@@ -117,6 +117,17 @@ h1, h2, p { margin: 0; }
   transition: border-color .18s ease, background-color .18s ease;
 }
 
+.rdb-card {
+  --accent: #a3eee1;
+  --accent-border: #4b837b;
+  --accent-tint: #233e3e;
+  background: #1b2827;
+}
+
+.rdb-card .card-content { background: linear-gradient(110deg, #263b37, transparent 90%); }
+
+.rdb-card .card-footer { border-color: #3d504c; }
+
 .incident-card {
   --accent: #ffaf9b;
   --accent-border: #8d5e59;
@@ -180,6 +191,8 @@ h1, h2, p { margin: 0; }
   background: #1f241c;
 }
 
+.rdb-card:hover, .rdb-card:focus-visible { background: #223733; }
+
 .incident-card:hover, .incident-card:focus-visible { background: #34272e; }
 
 .azure-card:hover, .azure-card:focus-visible { background: #23343f; }
@@ -214,6 +227,16 @@ h1, h2, p { margin: 0; }
 }
 
 .app-card:hover .card-art::before { transform: scale(1.035); }
+
+.rdb-art {
+  border-color: #3e615d;
+  background: #18312f;
+}
+
+.rdb-art::before {
+  background-image: linear-gradient(105deg, #143e3d8a, #34737214 76%), url("./assets/rdb-design.webp");
+  background-position: center 53%;
+}
 
 .incident-art {
   border-color: #64464b;
@@ -403,42 +426,9 @@ h1, h2, p { margin: 0; }
 .site-footer a:hover { color: var(--ink); }
 
 @media (min-width: 1060px) {
-  .app-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-  .app-card { grid-column: span 2; }
-
-  .incident-card, .azure-card {
-    display: grid;
-    grid-column: span 3;
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-  }
-
-  .incident-card .card-content, .azure-card .card-content {
-    grid-column: 1;
-    grid-row: 1;
-    padding: 23px 20px 19px;
-  }
-
-  .incident-card .card-content h2, .azure-card .card-content h2 {
-    font-size: clamp(30px, 2.7vw, 37px);
-  }
-
-  .incident-card .card-footer, .azure-card .card-footer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-  }
-
-  .incident-card .open-label, .azure-card .open-label { align-self: flex-end; }
-
-  .incident-art, .azure-art {
-    grid-column: 2;
-    grid-row: 1;
-    border-bottom-width: 0;
-    border-left: 1px solid;
-  }
-
-  .incident-art { border-left-color: #64464b; }
-  .azure-art { border-left-color: #405b71; }
+  .app-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .card-content h2 { font-size: clamp(25px, 2.36vw, 34px); }
+  .card-footer { gap: 6px 9px; }
 }
 
 @media (max-width: 950px) {
