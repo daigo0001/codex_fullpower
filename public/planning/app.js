@@ -1,4 +1,5 @@
 import { renderGuide } from "./guide.js";
+import { mountDelivery } from "./delivery.js";
 import { mountWbs } from "./wbs.js";
 import { renderTemplate, renderTemplatePack, templates } from "./templates.js";
 
@@ -45,6 +46,7 @@ const templateStatus = $("template-status");
 let mode = savedMode();
 let sample = true;
 let wbsMounted = false;
+let delivery;
 
 templateSelect.replaceChildren(...templates.map(({ id, title }) => new Option(title, id)));
 
@@ -66,12 +68,14 @@ function displayTemplate() {
 
 function renderPage() {
   const requested = location.hash.slice(1);
-  const topic = topics.has(requested) ? requested : "start";
+  const topic = topics.has(requested) ? requested : "delivery";
+  const isDelivery = topic === "delivery";
   const isWbs = topic === "wbs";
   const isTemplate = topic === "templates";
-  const isGuide = !isWbs && !isTemplate;
-  $("workbench").dataset.wide = String(isWbs);
+  const isGuide = !isDelivery && !isWbs && !isTemplate;
+  $("workbench").dataset.wide = String(isDelivery || isWbs);
   $("guide").hidden = !isGuide;
+  $("delivery-view").hidden = !isDelivery;
   $("wbs").hidden = !isWbs;
   $("template-view").hidden = !isTemplate;
   for (const link of topicLinks) {
@@ -79,6 +83,11 @@ function renderPage() {
     else link.removeAttribute("aria-current");
   }
   for (const button of modeButtons) button.setAttribute("aria-pressed", String(button.dataset.mode === mode));
+  if (isDelivery) {
+    delivery ??= mountDelivery($("delivery-view"), { saveFile });
+    delivery.setMode(mode);
+    return $("delivery-view");
+  }
   if (isGuide) renderGuide($("guide"), topic, { mode });
   if (isTemplate) displayTemplate();
   if (isWbs && !wbsMounted) {
@@ -124,8 +133,8 @@ for (const button of sampleButtons) {
 templateSelect.addEventListener("change", displayTemplate);
 projectName.addEventListener("input", displayTemplate);
 
-function saveMarkdown(filename, text) {
-  const blob = new Blob([text], { type: "text/markdown;charset=utf-8" });
+function saveFile(filename, data, type) {
+  const blob = new Blob([data], { type });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
@@ -134,6 +143,10 @@ function saveMarkdown(filename, text) {
   link.click();
   link.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function saveMarkdown(filename, text) {
+  saveFile(filename, text, "text/markdown;charset=utf-8");
   templateStatus.textContent = "Markdown ファイルの保存を開始しました。";
 }
 

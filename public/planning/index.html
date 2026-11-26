@@ -4,10 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0b1520">
-  <meta name="description" content="Web アプリの進め方、画面・詳細・インフラ設計、フォルダ構成と WBS を、ひとり開発とチーム開発の両方に沿って学ぶ。">
+  <meta name="description" content="備品貸出アプリを題材に、情報収集、コア要件、技術要件、設計、実装、リリースまでの手順と資料を学ぶ。">
   <title>Dev Blueprint | Codex Lab</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./delivery.css">
   <link rel="stylesheet" href="./guide.css">
   <link rel="stylesheet" href="./wbs.css">
   <script type="module" src="./app.js"></script>
@@ -29,7 +30,7 @@
         <h1 id="page-title">Dev Blueprint</h1>
         <p>Web アプリ開発の進め方。<br class="hero-break">目的を決め、設計から実装とリリースまでつなぐ。</p>
         <div class="hero-actions">
-          <a class="action primary-action" href="#start">進め方を見る<span data-icon="arrow"></span></a>
+          <a class="action primary-action" href="#delivery">企画からリリースまで<span data-icon="arrow"></span></a>
           <a class="action secondary-action" href="#wbs"><span data-icon="tasks"></span>WBS を作る</a>
         </div>
       </div>
@@ -39,6 +40,7 @@
       <aside class="rail">
         <nav class="section-nav" aria-label="ガイドと作業スペース">
           <h2>設計ガイド</h2>
+          <a href="#delivery" data-topic="delivery"><span data-icon="route"></span>企画からリリースまで</a>
           <a href="#start" data-topic="start"><span data-icon="route"></span>全体の進め方</a>
           <a href="#screen" data-topic="screen"><span data-icon="screen"></span>画面設計</a>
           <a href="#detail" data-topic="detail"><span data-icon="code"></span>詳細設計</a>
@@ -53,6 +55,7 @@
 
       <div class="content">
         <section class="guide-shell" id="guide" aria-label="開発ガイド"></section>
+        <section class="delivery-shell" id="delivery-view" aria-labelledby="delivery-title" hidden></section>
         <section id="wbs" aria-label="WBS の作業スペース" hidden></section>
         <section id="template-view" class="template-shell" aria-labelledby="template-title" hidden>
           <div class="template-intro">
