@@ -8,12 +8,14 @@ const defaultPublicDirectory = fileURLToPath(new URL('./public/', import.meta.ur
 const contentTypes = {
   '.avif': 'image/avif',
   '.css': 'text/css; charset=utf-8',
+  '.csv': 'text/csv; charset=utf-8',
   '.html': 'text/html; charset=utf-8',
   '.ico': 'image/x-icon',
   '.jpeg': 'image/jpeg',
   '.jpg': 'image/jpeg',
   '.js': 'text/javascript; charset=utf-8',
   '.json': 'application/json; charset=utf-8',
+  '.md': 'text/markdown; charset=utf-8',
   '.png': 'image/png',
   '.svg': 'image/svg+xml',
   '.webp': 'image/webp',
@@ -110,6 +112,10 @@ export function createAppServer({ publicDirectory = defaultPublicDirectory } = {
         response.writeHead(308, { Location: location, 'Content-Length': 0 });
         response.end();
         return;
+      }
+
+      if (path === '/web-development-pl-lab/standalone.html') {
+        response.setHeader('Content-Disposition', 'attachment; filename="web-development-pl-lab.html"');
       }
 
       if (method === 'HEAD') {

@@ -1,0 +1,64 @@
+.pl-practice-panel {
+  display: grid;
+  gap: 13px;
+  min-width: 0;
+}
+.pl-practice-panel p { overflow-wrap: anywhere; }
+.pl-practice-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.pl-practice-callout { display: grid; gap: 4px; }
+.pl-practice-callout strong { font-size: 14px; }
+.pl-practice-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+}
+.pl-practice-facts > div { min-width: 0; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+.pl-practice-facts dt, .pl-practice-field > span { font-weight: 700; }
+.pl-practice-facts dd { margin: 3px 0 0; color: var(--muted); }
+.pl-practice-options { display: grid; gap: 8px; }
+.pl-practice-option {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  align-items: start;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  cursor: pointer;
+}
+.pl-practice-option:hover { border-color: var(--accent); }
+.pl-practice-option:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
+.pl-practice-option > input { margin: 3px 0 0; }
+.pl-practice-option-copy { display: grid; gap: 3px; }
+.pl-practice-option-copy > span { color: var(--muted); font-size: 14px; }
+.pl-practice-check-option { align-items: center; }
+.pl-practice-check-option > input { margin: 0; }
+.pl-practice-field { display: grid; min-width: 0; align-content: start; gap: 5px; }
+.pl-practice-field textarea { min-height: 108px; }
+.pl-practice-field > select { width: 100%; }
+.pl-practice-field small { font-size: 13px; }
+.pl-practice-form { min-width: 0; }
+.pl-practice-details {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+.pl-practice-details > summary { min-height: 44px; padding: 10px 12px; font-weight: 700; }
+.pl-practice-details > div { padding: 0 10px 10px; min-width: 0; }
+.pl-practice-list { padding-inline-start: 22px; margin: 0; }
+.pl-practice-list > li + li { margin-block-start: 3px; }
+.pl-practice-status { display: grid; gap: 5px; text-wrap: pretty; overflow-wrap: anywhere; }
+.pl-practice-status:empty { display: none; }
+.pl-practice-row-actions { display: grid; gap: 6px; min-width: 112px; }
+.pl-practice-final-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; }
+
+@media (max-width: 640px) {
+  .pl-practice-facts, .pl-practice-final-fields { grid-template-columns: minmax(0, 1fr); }
+  .pl-practice-panel, .pl-practice-final-fields { gap: 10px; }
+  .pl-practice-options { padding: 8px; }
+  .pl-practice-option { padding: 8px; gap: 7px; }
+}

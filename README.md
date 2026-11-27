@@ -1,7 +1,8 @@
 # Codex Lab
 
-ポータルから、9つのブラウザーアプリを開けます。
+ポータルから、10個のブラウザーアプリを開けます。
 
+- **Web開発 PL実践ラボ** (`/web-development-pl-lab/`) は、社内問い合わせ管理の案件で、要求整理、設計、WBS・見積・ガント、トラブル時の判断、リリースを練習できます。
 - **RDB Design Lab** (`/database/`) は、備品貸出を題材に、テーブル設計、制約、インデックス、同時更新を学べる教材です。
 - **Incident Lab** (`/incidents/`) は、Web アプリの障害を題材に、調査、対応、復旧確認を練習できる教材です。
 - **Azure Network Atlas** (`/azure/`) は、Azure の VNet と通信経路を、構成図とシナリオで学べます。
@@ -28,6 +29,14 @@ docker compose up --build
 2. **Actions → Deploy Codex Lab to GitHub Pages → Run workflow** から、`main` を選んで実行します。以降は `public/` の変更を `main` に push すると自動更新されます。
 
 公開先の URL は **Settings → Pages** で確認できます。このリポジトリの標準 URL は `https://daigo0001.github.io/codex_fullpower/` です。Docker 版と GitHub Pages 版では、お気に入りと観測ノートの保存領域が別になります。
+
+## Web開発 PL実践ラボの使い方
+
+1. **プロジェクト開始** で、問い合わせ管理の背景から顧客への質問を選び、追加の質問と確認事項を記録します。要件を画面・API・DB・試験へつなげます。
+2. **WBS 作成** で作業を分け、見積とガントチャートで担当、稼働率、期限、作業の前提を確認します。完成例と自分の計画を比較できます。
+3. **進捗・トラブル対応** で変更を判断し、リスク・課題表とレビュー結果を残します。**最終演習** は会議室予約の別案件です。
+
+学習データは JSON で保存と復元ができ、WBS は CSV、成果物は Markdown で保存できます。「データ」から単体 HTML 版をダウンロードできます。オフライン版の再生成は `npm run build:pl-lab` です。[配布と資料](public/web-development-pl-lab/README.md)
 
 ## RDB Design Lab の使い方
 

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#172442">
+  <meta name="description" content="架空の社内問い合わせ管理システムの PL として、要求整理、Azure の設計、WBS、スケジュール、公開判定を体験するオフライン教材。">
+  <title>Web開発 PL実践ラボ | Codex Lab</title>
+  <link rel="icon" href="./assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/css/lab.css">
+  <link rel="stylesheet" href="./assets/css/requirements.css">
+  <link rel="stylesheet" href="./assets/css/design.css">
+  <link rel="stylesheet" href="./assets/css/azure.css">
+  <link rel="stylesheet" href="./assets/css/planning.css">
+  <link rel="stylesheet" href="./assets/css/practice.css">
+  <script defer src="./assets/js/curriculum.js"></script>
+  <script defer src="./assets/js/plan-model.js"></script>
+  <script defer src="./assets/js/workspace.js"></script>
+  <script defer src="./assets/js/requirements.js"></script>
+  <script defer src="./assets/js/design.js"></script>
+  <script defer src="./assets/js/azure.js"></script>
+  <script defer src="./assets/js/planning.js"></script>
+  <script defer src="./assets/js/practice.js"></script>
+  <script defer src="./assets/js/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">本文へ移動</a>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#chapter-00" aria-label="Web開発 PL実践ラボのダッシュボード">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h6v6H4zm10 10h6v6h-6zM7 10v7h7m0-10h6v4m-6-4 3-3m-3 3 3 3"/></svg></span>
+        <span>Web開発 <strong>PL実践ラボ</strong></span>
+      </a>
+      <a class="portal-link" href="../" data-portal-link>Codex Lab <span aria-hidden="true">↗</span></a>
+      <details class="data-menu" id="data-menu" hidden>
+        <summary>データ<span aria-hidden="true"> ▾</span></summary>
+        <div class="data-actions">
+          <button type="button" id="save-backup">学習データを JSON 保存</button>
+          <button type="button" id="load-backup">JSON バックアップを復元</button>
+          <input id="backup-file" type="file" accept=".json,application/json" hidden>
+          <button type="button" id="save-artifacts">成果物を Markdown 保存</button>
+          <a href="./standalone.html" download="web-development-pl-lab.html" data-offline-download>単体 HTML 版を保存</a>
+          <button type="button" id="reset-workspace" class="data-danger">演習を初期状態に戻す</button>
+        </div>
+      </details>
+    </div>
+  </header>
+
+  <div class="lab-layout">
+    <details class="sidebar" id="chapter-menu" open>
+      <summary><span class="menu-mark" aria-hidden="true">☰</span> 章メニュー <span id="mobile-progress"></span></summary>
+      <nav class="course-nav" aria-label="章メニュー">
+        <a href="#chapter-00" data-chapter="00"><span class="chapter-num">00</span>ダッシュボード</a>
+        <p>要求と要件</p>
+        <a href="#chapter-01" data-chapter="01"><span class="chapter-num">01</span>プロジェクト開始</a>
+        <a href="#chapter-02" data-chapter="02"><span class="chapter-num">02</span>要件定義</a>
+        <p>設計</p>
+        <a href="#chapter-03" data-chapter="03"><span class="chapter-num">03</span>画面設計</a>
+        <a href="#chapter-04" data-chapter="04"><span class="chapter-num">04</span>基本・詳細設計</a>
+        <a href="#chapter-05" data-chapter="05"><span class="chapter-num">05</span>Azure インフラ設計</a>
+        <p>開発計画</p>
+        <a href="#chapter-06" data-chapter="06"><span class="chapter-num">06</span>WBS 作成</a>
+        <a href="#chapter-07" data-chapter="07"><span class="chapter-num">07</span>工数見積</a>
+        <a href="#chapter-08" data-chapter="08"><span class="chapter-num">08</span>スケジュール</a>
+        <p>PL 実践</p>
+        <a href="#chapter-09" data-chapter="09"><span class="chapter-num">09</span>進捗・トラブル対応</a>
+        <a href="#chapter-10" data-chapter="10"><span class="chapter-num">10</span>PL の管理業務</a>
+        <a href="#chapter-11" data-chapter="11"><span class="chapter-num">11</span>AI 成果物レビュー</a>
+        <a href="#chapter-12" data-chapter="12"><span class="chapter-num">12</span>最終演習</a>
+        <div class="nav-progress" id="nav-progress" hidden></div>
+      </nav>
+    </details>
+
+    <main id="main-content" tabindex="-1">
+      <div id="app-status" class="global-status" role="status"></div>
+      <noscript><p class="callout">章の目次と概要を読めます。演習や保存を使う場合は JavaScript を有効にしてください。</p></noscript>
+      <section class="chapter" id="chapter-00" aria-labelledby="title-00"><h1 id="title-00">Web開発 PL実践ラボ</h1><p>社内問い合わせ管理システムを題材に、要求整理から開発計画、リリース・保守までを追います。</p></section>
+      <section class="chapter" id="chapter-01" aria-labelledby="title-01"><h1 id="title-01">プロジェクト開始・要求整理</h1><p>メールや共有表に散らばった問い合わせを、誰がどの場面で登録・検索・担当割当するか確かめます。</p></section>
+      <section class="chapter" id="chapter-02" aria-labelledby="title-02"><h1 id="title-02">要件定義シミュレーター</h1><p>顧客の希望を、要件 ID・対象範囲・受入条件に変換します。検索は利用できる条件と1ページの表示件数を決めます。</p></section>
+      <section class="chapter" id="chapter-03" aria-labelledby="title-03"><h1 id="title-03">画面設計演習</h1><p>一覧、詳細、登録・編集、管理者画面の状態と、権限別に見えるもの・できることを考えます。</p></section>
+      <section class="chapter" id="chapter-04" aria-labelledby="title-04"><h1 id="title-04">基本設計・詳細設計演習</h1><p>状態変更の画面操作から API、認可、DB 更新、競合と試験の対応を確認します。</p></section>
+      <section class="chapter" id="chapter-05" aria-labelledby="title-05"><h1 id="title-05">Azure インフラ設計演習</h1><p>公開する HTTPS 入口、Entra ID、DB へのプライベート接続、監視と復旧を設計します。</p></section>
+      <section class="chapter" id="chapter-06" aria-labelledby="title-06"><h1 id="title-06">WBS 作成演習</h1><p>WBS（作業分解構成）で、成果物・担当・完了条件・前提が分かる粒度まで作業を分けます。</p></section>
+      <section class="chapter" id="chapter-07" aria-labelledby="title-07"><h1 id="title-07">工数見積シミュレーター</h1><p>類似実績と三点見積を使い、作業量と不確実性を説明します。工数は人が作業する量、期間は開始から終了までの時間です。</p></section>
+      <section class="chapter" id="chapter-08" aria-labelledby="title-08"><h1 id="title-08">スケジュール作成シミュレーター</h1><p>依存関係、稼働率、レビュー待ち、休日、予備期間と納期を照らし合わせます。</p></section>
+      <section class="chapter" id="chapter-09" aria-labelledby="title-09"><h1 id="title-09">進捗管理・トラブル対応</h1><p>承認遅れや追加要望を受け、守る条件と変更できる範囲を明らかにして、次の合意を考えます。</p></section>
+      <section class="chapter" id="chapter-10" aria-labelledby="title-10"><h1 id="title-10">PL の管理業務</h1><p>リスク、すでに起きた課題、スコープ変更を、担当・期限・判断に結び付けます。</p></section>
+      <section class="chapter" id="chapter-11" aria-labelledby="title-11"><h1 id="title-11">AI 成果物レビュー演習</h1><p>設計・WBS・コード設計案に含まれる不足を、要件と検証結果に照らして説明します。</p></section>
+      <section class="chapter" id="chapter-12" aria-labelledby="title-12"><h1 id="title-12">最終演習</h1><p>別案件の社内会議室予約システムで、要件、見積、スケジュール、リリース判定まで組み立てます。</p></section>
+      <nav id="chapter-footer" class="chapter-footer" aria-label="前後の章" hidden></nav>
+      <footer class="lab-footer">
+        <a href="./docs/references.md" data-offline-resource>参考資料と確認日</a>
+        <span>案件、人物、工数、測定条件は学習用の設定です。</span>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>

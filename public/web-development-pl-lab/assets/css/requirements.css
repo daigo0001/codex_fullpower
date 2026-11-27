@@ -1,0 +1,12 @@
+.field-grid > .interview-choice {
+  min-height: 44px;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.interview-choice:hover { background: var(--accent-soft); }
