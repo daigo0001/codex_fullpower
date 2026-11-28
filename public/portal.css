@@ -117,6 +117,16 @@ h1, h2, p { margin: 0; }
   transition: border-color .18s ease, background-color .18s ease;
 }
 
+.release-card {
+  --accent: #b2edd8;
+  --accent-border: #5c8580;
+  --accent-tint: #244344;
+  background: #1d2c30;
+}
+
+.release-card .card-content { background: linear-gradient(110deg, #263d42, transparent 90%); }
+.release-card .card-footer { border-color: #40595b; }
+
 .pl-card {
   --accent: #b5f4cc;
   --accent-border: #547e7e;
@@ -201,6 +211,7 @@ h1, h2, p { margin: 0; }
   background: #1f241c;
 }
 
+.release-card:hover, .release-card:focus-visible { background: #284043; }
 .pl-card:hover, .pl-card:focus-visible { background: #263b45; }
 .rdb-card:hover, .rdb-card:focus-visible { background: #223733; }
 
@@ -238,6 +249,12 @@ h1, h2, p { margin: 0; }
 }
 
 .app-card:hover .card-art::before { transform: scale(1.035); }
+
+.release-art { border-color: #3f6269; background: #172b37; }
+.release-art::before {
+  background-image: linear-gradient(101deg, #18333c3d, transparent 80%), url("./assets/github-release.webp");
+  background-position: center 56%;
+}
 
 .pl-art { border-color: #3d5c6b; background: #152639; }
 .pl-art::before {

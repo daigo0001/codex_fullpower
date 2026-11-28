@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#141f2a">
+  <meta name="description" content="GitHub で Issue、PR、ブランチ、タグ、Release とデプロイをつなぎ、公開・緊急修正・切り戻しを練習する教材。">
+  <title>GitHub Release Lab | Codex Lab</title>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./drill.css">
+  <script defer src="./app.js"></script>
+  <script defer src="./guide.js"></script>
+  <script defer src="./kit.js"></script>
+  <script defer src="./drill.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a href="../" class="portal-link"><span class="portal-back" aria-hidden="true">←</span>Codex Lab</a>
+      <a href="#kit" class="header-action">資料を保存 <span aria-hidden="true">↓</span></a>
+    </div>
+  </header>
+  <main class="shell">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <h1 id="page-title">GitHub Release Lab</h1>
+        <p>Issue から本番まで。どの変更を、何を根拠に、どの版として出すか。</p>
+        <div class="actions">
+          <a class="button primary" href="#cycle">公開までの流れを見る</a>
+          <a class="button secondary" href="#drill">リリースを試す <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <div class="workbench" id="workbench">
+      <nav class="section-nav" aria-label="ラボの目次">
+        <a href="#cycle" data-tab="cycle">リリースの流れ</a>
+        <a href="#strategy" data-tab="strategy">ブランチ・版の戦略</a>
+        <a href="#tickets" data-tab="tickets">Issue・PR・進捗管理</a>
+        <a href="#drill" data-tab="drill">公開判断の演習</a>
+        <a href="#kit" data-tab="kit">資料とテンプレート</a>
+      </nav>
+      <div class="content">
+        <section id="cycle" class="panel" aria-labelledby="cycle-title"><h2 id="cycle-title">リリースの流れ</h2><p>Issue に目的と受入条件を置き、PR、検証環境、タグ・Release、本番配備まで追跡します。</p></section>
+        <section id="strategy" class="panel" aria-labelledby="strategy-title"><h2 id="strategy-title">ブランチ・版の戦略</h2><p>公開頻度、検証期間、保守する版を踏まえて、main 中心、短期のリリースブランチ、保守ブランチを使い分けます。</p></section>
+        <section id="tickets" class="panel" aria-labelledby="tickets-title"><h2 id="tickets-title">Issue・PR・進捗管理</h2><p>仕様や受入条件を Issue、実装と確認結果を PR、版ごとの対象と進捗を Milestone や Projects に記録します。</p></section>
+        <section id="drill" class="panel" aria-labelledby="drill-title"><h2 id="drill-title">公開判断の演習</h2><p>通常公開、緊急修正、データベース変更後の切り戻しを練習します。</p><div id="drill-workspace"></div></section>
+        <section id="kit" class="panel" aria-labelledby="kit-title">
+          <h2 id="kit-title">資料とテンプレート</h2>
+          <p>問い合わせ管理システムの記入例を読み、自分のリポジトリで使う Markdown として保存できます。</p>
+          <div class="kit" hidden>
+            <label for="kit-select">資料を選ぶ</label>
+            <select id="kit-select"></select>
+            <div class="kit-file"><h3 id="kit-filename"></h3><p id="kit-description"></p></div>
+            <pre id="kit-preview" tabindex="0" aria-label="資料の Markdown"></pre>
+            <div class="actions">
+              <button type="button" class="button primary" id="save-document">選んだ資料を保存</button>
+              <button type="button" class="button secondary" id="save-kit">全資料をまとめて保存</button>
+            </div>
+            <p id="kit-status" role="status"></p>
+          </div>
+        </section>
+      </div>
+    </div>
+    <footer class="footer">
+      <a href="../web-development-pl-lab/#chapter-10">PL実践ラボの課題・変更管理</a>
+      <a href="../planning/#delivery">Dev Blueprint の公開資料</a>
+      <span>案件、タグ、コミット、配備の結果は教材上の例です。</span>
+    </footer>
+  </main>
+</body>
+</html>

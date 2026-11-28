@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#11130f">
-  <meta name="description" content="Codex Lab の学習アプリを開く。Web開発 PL実践ラボ、RDB Design Lab、Incident Lab、Azure Network Atlas、Dev Blueprint ほか。">
+  <meta name="description" content="Codex Lab の学習アプリを開く。GitHub Release Lab、Web開発 PL実践ラボ、RDB Design Lab、Incident Lab、Azure Network Atlas ほか。">
   <title>Codex Lab — アプリ一覧</title>
   <link rel="icon" href="./favicon.ico" type="image/x-icon" sizes="16x16 32x32 48x48">
   <link rel="icon" href="./assets/lab-mark.svg" type="image/svg+xml" sizes="any">
@@ -29,6 +29,24 @@
       </div>
 
       <div class="app-grid">
+        <a class="app-card release-card" href="./releases/" aria-labelledby="release-title release-open">
+          <div class="card-art release-art">
+            <span class="app-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h8l9 9-6 6-11-11V6Z M12 14l2 2 3-3"/><circle cx="7.5" cy="9.5" r=".8" fill="currentColor"/></svg>
+            </span>
+          </div>
+          <div class="card-content">
+            <p class="category"><i aria-hidden="true"></i> リリース管理</p>
+            <h2 id="release-title">GitHub Release Lab</h2>
+            <p class="description">Issue と PR から本番までを追い、ブランチ戦略、公開判断、緊急修正と切り戻しを試せます。</p>
+            <div class="card-footer">
+              <span class="app-detail">公開の演習・Markdown 資料</span>
+              <span class="open-label" id="release-open">アプリを開く
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
         <a class="app-card pl-card" href="./web-development-pl-lab/" aria-labelledby="pl-title pl-open">
           <div class="card-art pl-art">
             <span class="app-icon" aria-hidden="true">

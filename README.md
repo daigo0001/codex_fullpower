@@ -1,7 +1,8 @@
 # Codex Lab
 
-ポータルから、10個のブラウザーアプリを開けます。
+ポータルから、11個のブラウザーアプリを開けます。
 
+- **GitHub Release Lab** (`/releases/`) は、Issue や PR からリリースと本番配備までを学び、緊急修正や切り戻しを演習できる教材です。
 - **Web開発 PL実践ラボ** (`/web-development-pl-lab/`) は、社内問い合わせ管理の案件で、要求整理、設計、WBS・見積・ガント、トラブル時の判断、リリースを練習できます。
 - **RDB Design Lab** (`/database/`) は、備品貸出を題材に、テーブル設計、制約、インデックス、同時更新を学べる教材です。
 - **Incident Lab** (`/incidents/`) は、Web アプリの障害を題材に、調査、対応、復旧確認を練習できる教材です。
@@ -29,6 +30,12 @@ docker compose up --build
 2. **Actions → Deploy Codex Lab to GitHub Pages → Run workflow** から、`main` を選んで実行します。以降は `public/` の変更を `main` に push すると自動更新されます。
 
 公開先の URL は **Settings → Pages** で確認できます。このリポジトリの標準 URL は `https://daigo0001.github.io/codex_fullpower/` です。Docker 版と GitHub Pages 版では、お気に入りと観測ノートの保存領域が別になります。
+
+## GitHub Release Lab の使い方
+
+1. **リリースの流れ** と **ブランチ・版の戦略** で、Issue、PR、コミット、タグ、ビルド成果物、実環境への配備を追います。公開頻度と保守する版に合わせてブランチの使い方を比較します。
+2. **公開判断の演習** では、検証済み成果物の本番昇格、緊急修正、DB 変更後の切り戻しを試せます。
+3. **資料とテンプレート** では、記入済みの方針、Issue・PR、リリースノート、公開・復旧手順、Actions の例を Markdown で保存できます。教材内の操作は架空の案件で進行します。
 
 ## Web開発 PL実践ラボの使い方
 
