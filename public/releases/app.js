@@ -6,6 +6,7 @@
     const links = [...document.querySelectorAll("[data-tab]")];
     const sections = new Map(links.map(({ dataset }) => [dataset.tab, $(dataset.tab)]));
     let mountedDrill = false;
+    let mountedGraph = false;
 
     for (const [id, item] of Object.entries(lab.guide)) {
       const section = sections.get(id);
@@ -68,6 +69,10 @@
       if (active === "drill" && !mountedDrill) {
         lab.mountDrill($("drill-workspace"));
         mountedDrill = true;
+      }
+      if (active === "graph" && !mountedGraph) {
+        lab.mountGraph($("graph-workspace"));
+        mountedGraph = true;
       }
       if (move) {
         const panel = sections.get(active);

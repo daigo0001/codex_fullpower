@@ -9,10 +9,13 @@
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <link rel="stylesheet" href="./styles.css">
   <link rel="stylesheet" href="./drill.css">
+  <link rel="stylesheet" href="./graph.css">
   <script defer src="./app.js"></script>
   <script defer src="./guide.js"></script>
   <script defer src="./kit.js"></script>
   <script defer src="./drill.js"></script>
+  <script defer src="./graph-data.js"></script>
+  <script defer src="./graph.js"></script>
 </head>
 <body>
   <header class="site-header">
@@ -27,7 +30,7 @@
         <h1 id="page-title">GitHub Release Lab</h1>
         <p>Issue から本番まで。どの変更を、何を根拠に、どの版として出すか。</p>
         <div class="actions">
-          <a class="button primary" href="#cycle">公開までの流れを見る</a>
+          <a class="button primary" href="#graph">Git グラフで見る</a>
           <a class="button secondary" href="#drill">リリースを試す <span aria-hidden="true">→</span></a>
         </div>
       </div>
@@ -38,6 +41,7 @@
         <a href="#cycle" data-tab="cycle">リリースの流れ</a>
         <a href="#strategy" data-tab="strategy">ブランチ・版の戦略</a>
         <a href="#tickets" data-tab="tickets">Issue・PR・進捗管理</a>
+        <a href="#graph" data-tab="graph">Git グラフ</a>
         <a href="#drill" data-tab="drill">公開判断の演習</a>
         <a href="#kit" data-tab="kit">資料とテンプレート</a>
       </nav>
@@ -45,6 +49,7 @@
         <section id="cycle" class="panel" aria-labelledby="cycle-title"><h2 id="cycle-title">リリースの流れ</h2><p>Issue に目的と受入条件を置き、PR、検証環境、タグ・Release、本番配備まで追跡します。</p></section>
         <section id="strategy" class="panel" aria-labelledby="strategy-title"><h2 id="strategy-title">ブランチ・版の戦略</h2><p>公開頻度、検証期間、保守する版を踏まえて、main 中心、短期のリリースブランチ、保守ブランチを使い分けます。</p></section>
         <section id="tickets" class="panel" aria-labelledby="tickets-title"><h2 id="tickets-title">Issue・PR・進捗管理</h2><p>仕様や受入条件を Issue、実装と確認結果を PR、版ごとの対象と進捗を Milestone や Projects に記録します。</p></section>
+        <section id="graph" class="panel" aria-labelledby="graph-title"><h2 id="graph-title">Git グラフで変更を追う</h2><p>機能追加、旧版へのパッチ、公開後のリバートを選び、コミットと参照先を一手ずつ追います。</p><div id="graph-workspace"></div></section>
         <section id="drill" class="panel" aria-labelledby="drill-title"><h2 id="drill-title">公開判断の演習</h2><p>通常公開、緊急修正、データベース変更後の切り戻しを練習します。</p><div id="drill-workspace"></div></section>
         <section id="kit" class="panel" aria-labelledby="kit-title">
           <h2 id="kit-title">資料とテンプレート</h2>

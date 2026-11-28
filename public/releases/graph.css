@@ -1,0 +1,98 @@
+#graph-workspace { min-width: 0; margin-top: 15px; }
+.gg-cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.gg-cases .button { min-height: 44px; }
+.gg-summary { margin-top: 7px; }
+.gg-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px; margin: 13px 0 8px; }
+.gg-current { min-width: 0; }
+.gg-count { display: block; margin-bottom: 2px; color: #a4c1cb; font: 650 11px/1.4 var(--mono); }
+.gg-step-title { overflow-wrap: anywhere; }
+.gg-viewport {
+  min-width: 0;
+  overflow: auto;
+  border: 1px solid #48616e;
+  border-radius: 9px;
+  scroll-padding-inline: 17px;
+  background: radial-gradient(ellipse at 25% 0%, #223946, #14232f 74%);
+  scrollbar-color: #64818c #162732;
+}
+.gg-viewport:focus-visible { outline-offset: -3px; }
+.gg-scroll-hint { display: none; margin-top: 5px; font-size: 11px; }
+.gg-diagram { display: block; max-width: none; }
+.gg-track { stroke: #35505d; stroke-dasharray: 4 5; }
+.gg-lane-label, .gg-sha { fill: #c7dce5; font: 630 11px var(--mono), var(--sans); }
+.gg-edge { fill: none; stroke: #8ba5b6; stroke-width: 2; }
+.gg-merge-edge { stroke: #9fd3be; }
+.gg-relation { fill: none; stroke-width: 1.5; stroke-dasharray: 5 4; }
+.gg-relation-replay { stroke: #a5a8f7; }
+.gg-relation-revert { stroke: #e7b48b; }
+.gg-commit { --commit: #9fe8ca; cursor: pointer; }
+.gg-color-1 { --commit: #9bd3ff; }
+.gg-color-2 { --commit: #edbf95; }
+.gg-color-3 { --commit: #cfb1f3; }
+.gg-dot { fill: var(--commit); stroke: #132532; stroke-width: 2; }
+.gg-hit { fill: transparent; stroke: transparent; }
+.gg-branch-mark { fill: none; stroke: var(--commit); stroke-width: 1.3; }
+.gg-commit[aria-pressed="true"] .gg-hit { fill: #defff11a; stroke: #a7e9d1; stroke-width: 1.4; }
+.gg-commit[aria-pressed="true"] .gg-sha { fill: #e4fff3; }
+.gg-commit:focus-visible { outline: none; }
+.gg-commit:hover .gg-hit, .gg-commit:focus-visible .gg-hit { stroke: #eafcf4; stroke-width: 2; }
+.gg-tag-mark { fill: #f0c399; }
+.gg-prod-mark { fill: #c7adff; stroke: #1b2a35; stroke-width: .8; }
+.gg-legend { display: flex; flex-wrap: wrap; gap: 5px 13px; margin: 7px 0 0; padding: 0; color: #bad0db; list-style: none; font-size: 11px; }
+.gg-legend li { display: flex; align-items: center; gap: 6px; margin: 0; }
+.gg-legend i { display: inline-block; flex: none; }
+.gg-legend-parent { width: 17px; border-top: 2px solid #8ba5b6; }
+.gg-legend-branch { width: 10px; height: 10px; border: 1.5px solid #9fe8ca; border-radius: 50%; }
+.gg-legend-tag { width: 8px; height: 8px; border-radius: 1px; background: #f0c399; }
+.gg-legend-prod { width: 8px; height: 8px; transform: rotate(45deg); background: #c7adff; }
+.gg-legend-relation { width: 17px; border-top: 2px dashed #c7adff; }
+.gg-explanation { margin-top: 12px; color: #d8e6ee; }
+.gg-command { margin-top: 7px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; color: #cbede5; background: #142330; font-size: 12px; }
+.gg-information { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 8px; margin-top: 12px; }
+.gg-refs ul { display: grid; gap: 4px; margin: 7px 0 0; padding: 0; list-style: none; }
+.gg-refs li { min-width: 0; margin: 0; }
+.gg-ref-button {
+  display: grid;
+  width: 100%;
+  min-height: 40px;
+  grid-template-columns: 66px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 6px;
+  border: 1px solid #405864;
+  border-radius: 6px;
+  color: #dcecfa;
+  background: #1b2c37;
+  overflow-wrap: anywhere;
+  text-align: left;
+  font-size: 11px;
+}
+.gg-ref-button:hover, .gg-ref-button[aria-pressed="true"] { border-color: #6f9f91; background: #27454d; }
+.gg-ref-kind { color: var(--accent); font-size: 10px; }
+.gg-ref-tag .gg-ref-kind { color: #f0c399; }
+.gg-ref-deployed .gg-ref-kind { color: #d2bcff; }
+.gg-inspector-body { display: grid; gap: 4px; margin-top: 7px; min-height: 96px; }
+.gg-identity { overflow-wrap: anywhere; }
+.gg-inspector .gg-identity { color: #e5f4f4; }
+.gg-parents, .gg-relation-note { font-size: 12px; }
+.gg-steps-list { margin-top: 12px; padding: 5px 8px; border: 1px solid var(--line); border-radius: 8px; }
+.gg-steps-list summary { min-height: 30px; padding: 4px; font-weight: 650; }
+.gg-steps-list summary::marker { color: var(--accent); }
+.gg-steps-list ol { display: grid; gap: 5px; margin-bottom: 5px; }
+.gg-steps-list li { margin-top: 0; }
+.gg-steps-list button { justify-content: start; min-height: 40px; text-align: left; }
+.gg-steps-list button[aria-current="step"] { border-color: #80b0a3; color: #d5f5e8; background: #315757; }
+.gg-takeaway { margin-top: 10px; }
+
+@media (max-width: 620px) {
+  .gg-information { grid-template-columns: minmax(0, 1fr); }
+  .gg-diagram { min-height: 108px; }
+  .gg-toolbar .button, .gg-ref-button { min-height: 44px; }
+}
+@media (max-width: 520px) {
+  .gg-scroll-hint { display: block; }
+}
+@media (max-width: 390px) {
+  .gg-cases .button { padding-inline: 5px; font-size: 11px; }
+  .gg-ref-button { grid-template-columns: 59px minmax(0, 1fr) auto; }
+}
